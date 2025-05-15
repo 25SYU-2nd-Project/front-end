@@ -1,0 +1,129 @@
+.Main-Container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.MyTeam-Box{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    width: 355px;
+    height: 199px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    margin-top: 32px;
+}
+
+.MyTeam-Header{
+    margin-top: 20px;
+    display: flex;
+    height: 24px;
+    gap: 217px;
+}
+
+.MyTeam-Header-Left{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.MyTeam-Header-Text{
+    font-family: 'Pretendard-Bold';
+    font-size: 20px;
+    color: #38414D;
+
+}
+
+.Quick-Record-Box{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    width: 355px;
+    height: 434px;
+    border-radius: 20px;
+    background-color: #FFFFFF;
+    margin-top: 25px;
+    margin-bottom: 12px;
+}
+
+.Quick-Record-Header {
+  width: 326.47px;
+  display: flex;
+  align-items: center;
+  height: 24px;
+  margin-top: 20px;  
+}
+
+
+.Quick-Record-Header-Img{
+    margin-right: 3px;
+}
+
+.Quick-Record-Header-Text{
+    font-family: 'Pretendard-Bold';
+    font-size: 20px;
+    color: #38414D;
+}
+
+.Record-Voice-Box{
+    width: 314px;
+    height: 203px;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    margin-top: 25px;
+}
+
+.Record-Voice-Header{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 10.18px;
+    width: 314px;
+    height: 53px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #35486D;
+}
+
+.Record-Voice-Header-Text{
+    font-family: 'Pretendard-Medium';
+    font-size: 20px;
+    color: #FFFFFF;
+}
+
+.Record-Voice-Header-Img{
+    margin-left: 18.35px;
+}
+
+.Record-Voice-Content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    width: 314px;
+    height: 150px;
+}
+
+.Record-Voice-Content-Timer{
+    margin-top: 16px;
+    font-family: 'Pretendard-Bold';
+    font-size: 24px;
+}
+
+.Record-Voice-Content-StartButton{
+    width: 220px;
+    height: 38px;
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFFFFF;
+    border-radius: 30px;
+}
