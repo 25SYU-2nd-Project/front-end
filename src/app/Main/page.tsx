@@ -11,10 +11,6 @@ export default function MainPage() {
       <button onClick={() => router.push('/team')}>
         팀 페이지로 이동
       </button>
-
-      <button onClick={() => router.push('/brief')}>
-        회의 페이지로 이동
-      </button>
     </div>
   )
 }
