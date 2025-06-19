@@ -39,7 +39,7 @@
 
 }
 
-.Quick-Record-Box{
+.idle-Quick-Record-Box{
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
@@ -49,10 +49,32 @@
     border-radius: 20px;
     background-color: #FFFFFF;
     margin-top: 25px;
-    margin-bottom: 12px;
+    padding-bottom: 20px;
+    overflow-y: auto;
+    margin-bottom: 11px;
+
 }
 
-.Quick-Record-Header {
+.idle-Quick-Record-Box::-webkit-scrollbar {
+    width: 9px;
+}
+
+.idle-Quick-Record-Box-webkit-scrollbar-track {
+    background-color: transparent;
+    margin-top: 62px;
+    margin-bottom: 62px;
+}
+
+.idle-Quick-Record-Box::-webkit-scrollbar-thumb {
+    background-color: #424242;
+    /* 스크롤바 색상 */
+    border-radius: 15px;
+    /* 스크롤바 모서리 둥글게 */
+    /* border: 14px solid #D9D9D9; */
+    /* 스크롤바를 오른쪽에서 떨어지게 하는 여백 */
+}
+
+.idle-Record-Header {
   width: 326.47px;
   display: flex;
   align-items: center;
@@ -61,17 +83,17 @@
 }
 
 
-.Quick-Record-Header-Img{
+.idle-Record-Header-Img{
     margin-right: 3px;
 }
 
-.Quick-Record-Header-Text{
+.idle-Record-Header-Text{
     font-family: 'Pretendard-Bold';
     font-size: 20px;
     color: #38414D;
 }
 
-.Record-Voice-Box{
+.idle-Record-Voice-Box{
     width: 314px;
     height: 203px;
     background-color: #D9D9D9;
@@ -79,7 +101,10 @@
     margin-top: 25px;
 }
 
-.Record-Voice-Header{
+
+
+
+.idle-Voice-Header{
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -92,32 +117,32 @@
     background-color: #35486D;
 }
 
-.Record-Voice-Header-Text{
+.idle-Voice-Header-Text{
     font-family: 'Pretendard-Medium';
     font-size: 20px;
     color: #FFFFFF;
 }
 
-.Record-Voice-Header-Img{
+.idle-Voice-Header-Img{
     margin-left: 18.35px;
 }
 
-.Record-Voice-Content{
+.idle-Voice-Content{
     display: flex;
     flex-direction: column;
     align-items: center;
     /* justify-content: center; */
     width: 314px;
-    height: 150px;
+    min-height: 150px;
 }
 
-.Record-Voice-Content-Timer{
+.idle-Voice-Content-Timer{
     margin-top: 16px;
     font-family: 'Pretendard-Bold';
     font-size: 24px;
 }
 
-.Record-Voice-Content-StartButton{
+.idle-Voice-Content-StartButton{
     width: 220px;
     height: 38px;
     margin-top: 16px;
@@ -127,3 +152,88 @@
     background-color: #FFFFFF;
     border-radius: 30px;
 }
+
+.Record-Voice-Summary{
+    width: 314px;
+    height: 176px;
+    margin-top: 20px;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.Record-Voice-Summary-Header{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 10.18px;
+    width: 314px;
+    height: 53px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #35486D;
+}
+
+.Record-Voice-Summary-Header-Text{
+    font-family: 'Pretendard-Medium';
+    font-size: 20px;
+    color: #FFFFFF;
+}
+
+.Record-Voice-Summary-Header-Img{
+    margin-left: 22.43px;
+}
+
+.Record-Voice-Summary-Content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    width: 314px;
+    height: 150px;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
+.Voice-Summary{
+    width: 100%;
+    height: 100%;
+    background-color: #D9D9D9;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-family: 'Pretendard-Reqular';
+    border-radius: 10px;
+    padding-left: 18px;
+    padding-right: 18px; /* 상하좌우 모두 들여쓰기 */
+    padding-bottom: 12px;
+    padding-top: 12px;
+    box-sizing: border-box;
+    resize: none;
+}
+.Voice-Summary::-webkit-scrollbar {
+    width: 7px;
+}
+
+.Voice-Summary-webkit-scrollbar-track {
+    background-color: transparent;
+    margin-top: 62px;
+    margin-bottom: 62px;
+}
+
+.Voice-Summary::-webkit-scrollbar-thumb {
+    background-color: #424242;
+    /* 스크롤바 색상 */
+    border-radius: 15px;
+    /* 스크롤바 모서리 둥글게 */
+    /* border: 14px solid #D9D9D9; */
+    /* 스크롤바를 오른쪽에서 떨어지게 하는 여백 */
+}
+
+
+.Voice-Summary ::placeholder {
+    font-family: 'Pretendard-Reqular';
+    font-size: 14px;
+}
+
