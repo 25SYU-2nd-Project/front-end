@@ -39,6 +39,78 @@
 
 }
 
+.MyTeam-Content {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-top: 15px;
+}
+
+.MyTeam-Content::-webkit-scrollbar {
+  height: 6px; /* 가로 스크롤바 두께 */
+  display: none;
+}
+
+.MyTeam-Content::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.MyTeam-Content::-webkit-scrollbar-thumb {
+  background-color: #424242;
+  border-radius: 15px;
+}
+
+
+
+
+.MyTeam-Slider {
+  display: flex;
+  gap: 16px;
+  scroll-snap-type: x mandatory;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: max-content;
+}
+.MyTeam-Slider.dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+
+
+.Team-Card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 130px;
+  height: 130px;
+  background-color: #e0e0e0;
+  border-radius: 20px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  scroll-snap-align: start;
+  padding-left: 14px;
+}
+
+.Team-Name {
+  font-family: 'Pretendard-Bold';
+  font-size: 16px;
+  margin-bottom: 13px;
+  color: #000000;
+}
+
+.Team-Schedule {
+  font-family: 'Pretendard-Medium';
+  color: #000000;
+  font-size: 14px;
+}
+
+.Team-Date {
+  font-family: 'Pretendard-Light';
+  color: #000000;
+  font-size: 14px;
+}
+
+
 .idle-Quick-Record-Box{
     display: flex;
     flex-direction: column;
