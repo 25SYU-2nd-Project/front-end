@@ -1,0 +1,176 @@
+.BriefDetail-Container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.BriefDetail-Box{
+    width: 355px;
+    height: 657px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-top: 33px;
+    margin-bottom: 11px;
+}
+
+.BriefDetail-Header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #283652;
+    width: 333px;
+    height: 54px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    font-family: 'Pretendard-Bold';
+    color: #FFFFFF;
+    font-size: 20px;
+    padding-left: 22px;
+}
+
+.BriefDetail-Header-Img{
+    margin-right: 5px;
+}
+
+.BriefDetail-Content{
+    display: flex;
+    flex-direction: column;
+    width: 355px;
+    height: 604px;
+    background-color: #D9D9D9;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    align-items: center;
+}
+
+.Content-Times-Header{
+    display: flex;
+    flex-direction: row;
+    align-self: flex-start;    /* 부모 정렬 요소 무시하고 자신을 정렬함 */
+    margin-left: 13px;
+    align-items: center;
+    gap: 11px;
+    margin-top: 22px;
+    margin-bottom: 8px;
+}
+
+.Content-Team-Header{
+    display: flex;
+    flex-direction: row;
+    align-self: flex-start;   /* 부모 정렬 요소 무시하고 자신을 정렬함 */
+    margin-left: 13px;
+    align-items: center;
+    gap: 23px;
+
+}
+
+.Brief-Times-Label {
+    font-family: 'Pretendard-SemiBold';
+    font-size: 16px;
+}
+
+.Brief-Times-Label-Ans {
+    font-family: 'Pretendard-Regular';
+    font-size: 10px;
+}
+
+.Brief-Team-Label {
+    font-family: 'Pretendard-SemiBold';
+    font-size: 14px;
+}
+
+.Brief-Team-Label-Ans{
+    font-family: 'Pretendard-Regular';
+    font-size: 10px;
+}
+
+.BriefDetail-Content-Entry{
+    display: flex;
+    flex-direction: column;
+    width: 329px;
+    height: 215px;
+    background-color: #919EB8;
+    border-radius: 10px;
+    align-items: center;
+    margin-top: 19px;
+    overflow-y: auto;
+}
+
+.BriefDetail-Content-Entry::-webkit-scrollbar {
+    width: 9px;
+}
+
+.BriefDetail-Content-Entry-webkit-scrollbar-track {
+    background-color: transparent;
+    margin-top: 62px;
+    margin-bottom: 62px;
+}
+
+.BriefDetail-Content-Entry::-webkit-scrollbar-thumb {
+    background-color: #424242;
+    /* 스크롤바 색상 */
+    border-radius: 15px;
+    /* 스크롤바 모서리 둥글게 */
+    /* border: 14px solid #D9D9D9; */
+    /* 스크롤바를 오른쪽에서 떨어지게 하는 여백 */
+}
+
+.Content-Entry-Title {
+    align-self: flex-start;
+    font-family: 'Pretendard-Bold';
+    font-size: 14px;
+    margin-top: 13px;
+    margin-left: 13px;
+}
+
+.Entry-List{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 5px;
+    padding-bottom: 11px;
+}
+
+.Entry-Item{
+    display: flex;
+    flex-direction: row;
+    width: 270px;
+    height: 30px;
+    border-bottom: 1px solid #000;
+    gap: 166px;
+    align-items: center;
+}
+
+.Entry-Name{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.Entry-Name-Label{
+    font-family: 'Pretendard-Bold';
+    font-size: 15px;
+}
+
+.Role {
+  font-family: 'Pretendard-Medium';
+  font-size: 13px;
+  color: #000000;
+  margin-left: 3px;
+  margin-top: 2.5px;
+}
+
+.Role.Leader {
+  font-family: 'Pretendard-Medium';
+  font-size: 13px;
+  color: #FFB006;
+}
+
+/* .Entry-AddBtn {
+    padding: 0;
+    align-self: center;
+} */

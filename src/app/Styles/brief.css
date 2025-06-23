@@ -1,0 +1,122 @@
+.Brief-Main-Container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.Brief-Box {
+    width: 355px;
+    height: 657px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-top: 33px;
+    margin-bottom: 11px;
+}
+
+.Brief-Header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #283652;
+    width: 333px;
+    height: 54px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-family: 'Pretendard-Bold';
+    color: #FFFFFF;
+    font-size: 20px;
+    padding-left: 22px;
+}
+
+.Brief-Category {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 309px;
+  height: 55px;
+  background-color: #38414D;
+  font-family: 'Pretendard-Bold';
+  color: #FFFFFF;
+  font-size: 14px;
+  padding: 0 23px;
+  column-gap: 12px;
+}
+
+/* 카테고리와 실제 데이터 항목들에 동일한 width를 지정 */
+.Brief-Category-Date {
+  width: 90px;
+}
+
+.Brief-Category-Times {
+  width: 48px;
+}
+
+.Brief-Category-Brief {
+  flex: 1;
+}
+
+.Brief-Main-Content {
+    display: flex;
+    flex-direction: row;
+    width: 355px;
+    height: 568px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #D9D9D9;
+    position: relative;
+
+
+}
+
+.Brief-List-Wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.Brief-Item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 17px 23px;
+  border-bottom: 1px solid #000;
+  column-gap: 12px; 
+  /* 모든 항목 간의 간격을 균일하게 자동 조정 */
+}
+
+.Brief-Date {
+  width: 90px;
+  font-size: 13px;
+  font-family: 'Pretendard-Regular';
+}
+
+.Brief-Times {
+  width: 48px;
+  font-family: 'Pretendard-Medium';
+  font-size: 13px;
+}
+
+.Brief-Brief {
+  flex: 1;
+  font-family: 'Pretendard-Regular';
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.Brief-AddButton {
+    position: absolute; /* 부모 기준으로 고정됨 */
+    right: 16px;
+    bottom: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

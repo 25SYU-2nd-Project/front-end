@@ -71,10 +71,10 @@
   margin-right: 10px;
   width: max-content;
 }
-.MyTeam-Slider.dragging {
+/* .MyTeam-Slider.dragging {
   cursor: grabbing;
   user-select: none;
-}
+} */
 
 
 
