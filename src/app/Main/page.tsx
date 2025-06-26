@@ -11,17 +11,17 @@ import Image from 'next/image';
 export default function MainPage() {
   const router = useRouter();
 
-  const sliderRef   = useRef<HTMLDivElement>(null);
-  const isDragging  = useRef(false);
-  const startX      = useRef(0);
-  const scrollLeft  = useRef(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
 
-  const [recordingPhase, setRecordingPhase] = useState<'idle' | 'recording'>('idle');
+  const [recordingPhase, setRecordingPhase] = useState<'idle' | 'recording' | 'done'>('idle');
 
   const teamList = [
-    { name: '두유즈',       schedule: '5/8 (목) 21:00' },
+    { name: '두유즈', schedule: '5/8 (목) 21:00' },
     { name: '못난이사자들2', schedule: '5/9 (목) 22:00' },
-    { name: '아이디어팟',    schedule: '5/11 (토) 20:00' },
+    { name: '아이디어팟', schedule: '5/11 (토) 20:00' },
   ];
 
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -31,6 +31,10 @@ export default function MainPage() {
       startX.current = e.pageX - sliderRef.current.offsetLeft;
       scrollLeft.current = sliderRef.current.scrollLeft;
     }
+  };
+
+  const handleDoneClipboardCopy = () => {
+    setRecordingPhase('idle');
   };
 
   return (
@@ -100,12 +104,37 @@ export default function MainPage() {
               <p className="Record-Voice-Summary-Header-Text">텍스트 회의록 요약</p>
             </div>
             <div className="Record-Voice-Summary-Content">
-              <textarea className="Voice-Summary" placeholder="회의록 텍스트를 입력해주세요." />
+              <textarea
+                id="manual-summary"
+                className="Voice-Summary"
+                placeholder="회의록 텍스트를 입력해주세요."
+              />
             </div>
           </div>
+                      <div className="Record-Voice-Summary-Clipboard">
+              <p
+                className="Save-Label"
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  const textarea = document.getElementById('manual-summary') as HTMLTextAreaElement;
+                  const text = textarea?.value.trim();
+                  if (text) {
+                    navigator.clipboard.writeText(text);
+                    alert('클립보드에 복사되었습니다.');
+                  } else {
+                    alert('복사할 내용이 없습니다.');
+                  }
+                }}
+              >
+                클립보드에 저장
+              </p>
+            </div>
         </div>
       ) : (
-        <QuickRecord onStop={() => setRecordingPhase('idle')} />
+        <QuickRecord
+          onStop={() => setRecordingPhase('done')}
+          onCopyComplete={handleDoneClipboardCopy}
+        />
       )}
 
       <Footer />

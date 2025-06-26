@@ -1,21 +1,28 @@
 'use client';
 import '../Styles/QuickRecord.css';
+import '../Styles/main.css'
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 interface QuickRecordProps {
   onStop: () => void;
+  onCopyComplete: () => void;
 }
 
-export default function QuickRecord({ onStop }: QuickRecordProps) {
+export default function QuickRecord({ onStop, onCopyComplete }: QuickRecordProps) {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
-  const [isStopped, setIsStopped] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [summary, setSummary] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isRecording, setIsRecording] = useState(true);
 
+  const [seconds, setSeconds] = useState(0);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const [isPaused, setIsPaused] = useState(false);
+  const [phase, setPhase] = useState<'recording' | 'done'>('recording');
 
   const handleGeminiSummarize = async () => {
     if (!transcript.trim()) return;
@@ -37,6 +44,7 @@ export default function QuickRecord({ onStop }: QuickRecordProps) {
 
       if (response.ok && result.summarizedText) {
         setSummary(result.summarizedText);
+        setPhase('done');
       } else {
         throw new Error(result.message || '요약 실패');
       }
@@ -47,9 +55,8 @@ export default function QuickRecord({ onStop }: QuickRecordProps) {
     }
   };
 
-
   useEffect(() => {
-    (async () => {
+    const startRecording = async () => {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const mediaRecorder = new MediaRecorder(stream);
 
@@ -60,7 +67,6 @@ export default function QuickRecord({ onStop }: QuickRecordProps) {
       };
 
       mediaRecorder.onstop = async () => {
-
         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
 
         try {
@@ -69,28 +75,74 @@ export default function QuickRecord({ onStop }: QuickRecordProps) {
             body: audioBlob,
           });
           const result = await response.json();
-          console.log('API 응답 결과:', result);
           setTranscript(result.text || '[결과 없음]');
-
         } catch (error) {
           console.error('❌ 변환 실패:', error);
           setTranscript('오류가 발생했습니다.');
         }
-
-        // onStop();
       };
 
       mediaRecorderRef.current = mediaRecorder;
       mediaRecorder.start();
-    })();
+
+      if (timerRef.current) clearInterval(timerRef.current);
+      setSeconds(0);
+      timerRef.current = setInterval(() => {
+        setSeconds((prev) => prev + 1);
+      }, 1000);
+    };
+
+    startRecording();
 
     return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
       mediaRecorderRef.current?.stream?.getTracks().forEach((track) => track.stop());
     };
   }, []);
 
-  const stopRecording = () => {
-    mediaRecorderRef.current?.stop();
+  const pauseRecording = () => {
+    if (mediaRecorderRef.current?.state === 'recording') {
+      mediaRecorderRef.current.pause();
+      setIsPaused(true);
+      if (timerRef.current) clearInterval(timerRef.current);
+    }
+  };
+
+  const resumeRecording = () => {
+    if (mediaRecorderRef.current?.state === 'paused') {
+      mediaRecorderRef.current.resume();
+      setIsPaused(false);
+      timerRef.current = setInterval(() => {
+        setSeconds((prev) => prev + 1);
+      }, 1000);
+    }
+  };
+
+  const endRecording = () => {
+    if (mediaRecorderRef.current) {
+      if (mediaRecorderRef.current.state !== 'inactive') {
+        mediaRecorderRef.current.stop(); // 녹음 종료
+      }
+      mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop()); // 스트림 강제 종료
+    }
+
+    if (timerRef.current) {
+      clearInterval(timerRef.current);  // 타이머 종료
+      timerRef.current = null;
+    }
+
+    setIsPaused(false);
+    setIsRecording(false);
+    setSeconds(0);
+    setPhase('done'); // 요약 단계로 전환 (요약 버튼만 보여짐)
+  };
+
+
+  const formatTime = (totalSeconds: number) => {
+    const hrs = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+    const mins = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+    const secs = String(totalSeconds % 60).padStart(2, '0');
+    return `${hrs}:${mins}:${secs}`;
   };
 
   return (
@@ -107,29 +159,64 @@ export default function QuickRecord({ onStop }: QuickRecordProps) {
         </div>
 
         <div className='Recording-Voice-Content'>
-          <div className='Recording-Voice-Content-Timer'>00:00:00</div>
+          <div className='Recording-Voice-Content-Timer'>{formatTime(seconds)}</div>
           <div className='Recording-Voice-Content-ButtonBox'>
-            <Image className='Recording-Play-Button' src="/images/QuickRecordPlay.png" alt="PlayButton" width={30} height={30} />
-            <Image
-              className='Recording-Gemini-Button'
-              src="/images/Gemini.png"
-              alt="GemButton"
-              width={27}
-              height={27}
-              onClick={handleGeminiSummarize}
-              style={{ cursor: 'pointer' }}
-            />
-
-            <Image
-              className='Recording-Pause-Button'
-              src="/images/QuickRecordPause.png"
-              alt="PauseButton"
-              width={30}
-              height={30}
-              onClick={stopRecording}
-              style={{ cursor: 'pointer' }}
-            />
+            {phase === 'recording' && (
+              <>
+                <Image
+                  className='Recording-End-Button'
+                  src="/images/RecordEnd.png"
+                  alt="EndButton"
+                  width={30}
+                  height={30}
+                  onClick={endRecording}
+                  style={{ cursor: 'pointer' }}
+                />
+                <Image
+                  className='Recording-Gemini-Button'
+                  src="/images/Gemini.png"
+                  alt="GemButton"
+                  width={27}
+                  height={27}
+                  onClick={handleGeminiSummarize}
+                  style={{ cursor: 'pointer' }}
+                />
+                {isPaused ? (
+                  <Image
+                    className='Recording-Play-Button'
+                    src="/images/QuickRecordPlay.png"
+                    alt="PlayButton"
+                    width={30}
+                    height={30}
+                    onClick={resumeRecording}
+                    style={{ cursor: 'pointer' }}
+                  />
+                ) : (
+                  <Image
+                    className='Recording-Pause-Button'
+                    src="/images/QuickRecordPause.png"
+                    alt="PauseButton"
+                    width={30}
+                    height={30}
+                    onClick={pauseRecording}
+                    style={{ cursor: 'pointer' }}
+                  />
+                )}
+              </>
+            )}
+            {phase === 'done' && (
+              <Image
+                className='Recording-Gemini-Button'
+                src="/images/Gemini.png"
+                alt="GemButton"
+                width={27}
+                height={27}
+                onClick={handleGeminiSummarize}
+                style={{ cursor: 'pointer' }}
+              />
+            )}
           </div>
+
 
           <div className='Recording-Gemini-Summary'>
             {loading ? (
@@ -153,8 +240,6 @@ export default function QuickRecord({ onStop }: QuickRecordProps) {
             )}
           </div>
 
-
-
           <div className='Recording-Gemini-Save'>
             <p
               className='Save-Label'
@@ -162,6 +247,7 @@ export default function QuickRecord({ onStop }: QuickRecordProps) {
               onClick={() => {
                 if (summary.trim()) {
                   navigator.clipboard.writeText(summary);
+                  onCopyComplete();
                 } else {
                   alert('요약 결과가 없습니다.');
                 }
@@ -184,14 +270,33 @@ export default function QuickRecord({ onStop }: QuickRecordProps) {
           />
           <p className='Record-Voice-Summary-Header-Text'>텍스트 회의록 요약</p>
         </div>
+
         <div className='Record-Voice-Summary-Content'>
           <textarea
-            className='Voice-Summary'
-            placeholder='회의록 텍스트를 입력해주세요.'
+              id="manual-summary"
+              className="Voice-Summary"
+              placeholder="회의록 텍스트를 입력해주세요."
           />
         </div>
       </div>
-
+        <div className='Record-Voice-Summary-Clipboard'>
+          <p
+            className='Save-Label'
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              const textarea = document.getElementById('manual-summary') as HTMLTextAreaElement;
+              const text = textarea?.value.trim();
+              if (text) {
+                navigator.clipboard.writeText(text);
+                alert('클립보드에 복사되었습니다.');
+              } else {
+                alert('복사할 내용이 없습니다.');
+              }
+            }}
+          >
+            클립보드에 저장
+          </p>
+        </div>
     </div>
   );
 }

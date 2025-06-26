@@ -117,14 +117,13 @@
     /* justify-content: center; */
     align-items: center;
     width: 355px;
-    height: 434px;
+    height: 530px;
     border-radius: 20px;
     background-color: #FFFFFF;
     margin-top: 25px;
-    padding-bottom: 20px;
+    /* padding-bottom: 11px; */
     overflow-y: auto;
     margin-bottom: 11px;
-
 }
 
 .idle-Quick-Record-Box::-webkit-scrollbar {
@@ -229,6 +228,7 @@
     background-color: #D9D9D9;
     border-radius: 10px;
     margin-bottom: 20px;
+    align-items: flex-end;
 }
 
 .Record-Voice-Summary-Header{
@@ -304,5 +304,19 @@
 .Voice-Summary ::placeholder {
     font-family: 'Pretendard-Reqular';
     font-size: 14px;
+}
+
+.Record-Voice-Summary-Clipboard {
+    display: flex;
+    width: 124px;
+    height: 23px;
+    background-color: #38414D;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12px;
+    /* margin-bottom: 8px; */
+    align-self: flex-end; 
+    margin-right: 25px;
 }
 
