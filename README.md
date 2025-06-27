@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Brief-Log
+<img width="247" alt="image" src="https://github.com/user-attachments/assets/58acb347-d6b5-4816-9ec7-37e92f6d4734" />
 
-## Getting Started
+## 🔍 소개
 
-First, run the development server:
+Brief-Log는 회의의 생산성을 높이기 위한 서비스입니다.   
+실시간 음성 녹음 → AI 기반 요약 → 회의록 저장 및 관리를 손쉽게 할 수 있습니다.   
+또한 회의 일정 확인, 출석 체크, 팀 관리 기능도 함께 제공하여 협업에 최적화되어 있습니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 💡 주요 기능
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🎙️ 회의 실시간 음성 인식 & 요약
+- CLOVA Speech API를 통한 **텍스트 자동 변환**
+- Gemini AI를 이용한 **회의 내용 자동 요약**
+  
+### 📝 회의록 관리
+- 생성된 회의록 목록 조회 및 상세 보기
+- 팀별 회의록 정리
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 📅 회의 일정 확인
+- 팀별 예정된 회의 일정 확인
 
-## Learn More
+### 👥 회의 출석 관리
+- 실시간 회의 참가자 확인
+- 팀장 권한으로 출석 체크 가능
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔧 기술 스택
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| 영역 | 스택 |
+|------|------|
+| **Frontend** | Next.js, TypeScript |
+| **Backend** | Spring Boot, MySQL |
+| **STT** | CLOVA Speech |
+| **요약** | Gemini AI |
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🧑‍💻 멤버
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| 이름   | 역할           | GitHub |
+|--------|--------------|--------|
+| 정서우   | 프론트엔드 개발 | [@8woes](https://github.com/8woes) |
+| 유광렬   | 프론트엔드 개발 | [@ryeol00](https://github.com/ryeol00) |
+| 장준익   | 백엔드 개발, 서비스 디자인 | [@No4hh4oN](https://github.com/No4hh4oN) |
+
+
+## 🚧 개발 진행 상황
+
+| 기능                     | 상태     | 비고 |
+|--------------------------|----------|------|
+| 회원가입 / 로그인         | 🔄 진행 중   | 프론트-백엔드 연동 |
+| STT 변환                 | ✅ 완료   |  |
+| 요약 (Gemini AI)         | ✅ 완료   | 텍스트 기반 요약 성공 |
+| 회의록 저장 및 조회       | 🔄 진행 중   | 프론트-백엔드 연동 |
+| 회의 일정 확인            | 🔄 진행 중   | 예시 데이터 표시 및 정렬 완료 |
+| 팀원 출석 관리          | 🔄 진행 중 | 프론트-백엔드 연동  |
+| 배포         | 🔄 진행 중 | 백엔드 EC2 RDS 배포 완료 & 프론트 vercel 배포 예정 |
+
+
+## 📑 서비스 명세서
+[BriefLog API 명세서](https://standing-sauce-e3e.notion.site/BriefLog-21fe23d0319080119466d69c53e9e065#21fe23d031908076abf7df0406c195ee)
