@@ -4,7 +4,7 @@
     /* justify-content: center; */
     align-items: center;
     width: 355px;
-    height: 750px;
+    height: 445px;
     border-radius: 20px;
     background-color: #FFFFFF;
     margin-top: 25px;
@@ -123,8 +123,16 @@
     padding-bottom: 6px;
     padding-top: 6px;
     line-height: 1.6;
-    font-size: 14px;
-    font-family: 'Pretendard-Light';
+}
+
+.Gemini-Summary-Title {
+    font-size: 13px;
+    font-family: 'Pretendard-Bold';
+}
+
+.Gemini-Summary-Content {
+    font-size: 13px; 
+    font-family: 'Pretendard-Medium';
 }
 
 .Recording-Gemini-Save {

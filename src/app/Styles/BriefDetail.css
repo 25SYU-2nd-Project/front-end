@@ -22,7 +22,7 @@
     flex-direction: row;
     align-items: center;
     background-color: #283652;
-    width: 333px;
+    width: 355px;
     height: 54px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -31,6 +31,7 @@
     font-size: 20px;
     padding-left: 22px;
 }
+
 
 .BriefDetail-Header-Img {
     margin-right: 5px;
@@ -281,3 +282,4 @@
     border-radius: 10px;
     overflow-y: auto;
 }
+

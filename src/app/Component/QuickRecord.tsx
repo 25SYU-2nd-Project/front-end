@@ -225,8 +225,8 @@ export default function QuickRecord({ onStop, onCopyComplete }: QuickRecordProps
               `요약 오류: ${error}`
             ) : summary.trim() ? (
               <div>
-                <h3>회의 요약</h3>
-                <ul style={{ paddingLeft: '20px' }}>
+                <p className='Gemini-Summary-Title'>회의 요약</p>
+                <ul className='Gemini-Summary-Content' style={{ paddingLeft: '23px' }}>
                   {summary
                     .split('\n')
                     .filter(line => line.trim() !== '')

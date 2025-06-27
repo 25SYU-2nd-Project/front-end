@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .Main-Container {
     width: 100%;
     display: flex;
@@ -70,6 +74,7 @@
   margin-left: 10px;
   margin-right: 10px;
   width: max-content;
+  height: 140px;
 }
 /* .MyTeam-Slider.dragging {
   cursor: grabbing;
@@ -86,7 +91,7 @@
   height: 130px;
   background-color: #e0e0e0;
   border-radius: 20px;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   scroll-snap-align: start;
   padding-left: 14px;
 }
@@ -117,11 +122,11 @@
     /* justify-content: center; */
     align-items: center;
     width: 355px;
-    height: 530px;
+    height: 445px;
     border-radius: 20px;
     background-color: #FFFFFF;
     margin-top: 25px;
-    /* padding-bottom: 11px; */
+    padding-bottom: 11px;
     overflow-y: auto;
     margin-bottom: 11px;
 }
@@ -307,16 +312,41 @@
 }
 
 .Record-Voice-Summary-Clipboard {
-    display: flex;
-    width: 124px;
-    height: 23px;
-    background-color: #38414D;
-    border-radius: 10px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 12px;
-    /* margin-bottom: 8px; */
-    align-self: flex-end; 
-    margin-right: 25px;
+  display: flex;
+  width: 124px;
+  height: 23px;
+  min-height: 23px;
+  background-color: #38414D;
+  border-radius: 12px;
+
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 12px;
+  align-self: flex-end;
+  margin-right: 25px;
+
+  font-size: 13px; /* 12~13px이 시각적으로 가장 안정적 */
+  font-family: 'Pretendard-Medium';
+  color: #ffffff;
+  line-height: 1;
+
+  white-space: nowrap;
+  box-sizing: border-box; /* 중요: 패딩 고려한 높이 계산 */
+  padding: 0 6px; /* 가로 여백만 아주 약간 */
+  cursor: pointer;
+  
 }
+
+.Save-Label {
+  font-size: 11px;
+  font-family: 'Pretendard-Medium';
+  line-height: 1;
+  color: #ffffff;
+  margin: 0; /* 기본 마진 제거 */
+  padding: 0; /* 혹시 브라우저 기본값 */
+}
+
+
+
 
