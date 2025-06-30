@@ -1,12 +1,22 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import QuickRecord from '../Component/QuickRecord';
 import Header from '../Component/Header';
 import Footer from '../Component/Footer';
 import '../Styles/main.css';
 import Image from 'next/image';
+import Link from 'next/link';
+
+import api from '../api';
+
+
+/** 백엔드 응답 타입 */
+interface Team {
+  id: number;
+  teamName: string;
+}
 
 export default function MainPage() {
   const router = useRouter();
@@ -18,11 +28,10 @@ export default function MainPage() {
 
   const [recordingPhase, setRecordingPhase] = useState<'idle' | 'recording' | 'done'>('idle');
 
-  const teamList = [
-    { name: '두유즈', schedule: '5/8 (목) 21:00' },
-    { name: '못난이사자들2', schedule: '5/9 (목) 22:00' },
-    { name: '아이디어팟', schedule: '5/11 (토) 20:00' },
-  ];
+  const [teamList, setTeamList] = useState<Team[]>([]);
+  const [loading, setLoading]   = useState(true); 
+
+  
 
   const handleMouseDown = (e: React.MouseEvent) => {
     isDragging.current = true;
@@ -36,6 +45,42 @@ export default function MainPage() {
   const handleDoneClipboardCopy = () => {
     setRecordingPhase('idle');
   };
+
+  const handleCreateTeam = () => {
+    router.push('/teamCreate');
+  };
+
+  useEffect(() => {
+  const fetchTeams = async () => {
+    const token =
+      localStorage.getItem('token') || sessionStorage.getItem('token');
+
+    if (!token) {                         // 미로그인 처리
+      console.warn('토큰이 없습니다.');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const { data } = await api.get<Team[]>('/teams/my-teams', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // id 오름차순 정렬
+      const sorted = data.sort((a, b) => a.id - b.id);
+      setTeamList(sorted);
+    } catch (err) {
+      console.error('팀 조회 실패', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchTeams();
+}, []);
+
 
   return (
     <div className="Main-Container">
@@ -52,19 +97,40 @@ export default function MainPage() {
         </div>
 
         <div className="MyTeam-Content">
-          <div
-            className="MyTeam-Slider"
-            ref={sliderRef}
-            onMouseDown={handleMouseDown}
-          >
-            {teamList.map((team, idx) => (
-              <div key={idx} className="Team-Card">
-                <div className="Team-Name">{team.name}</div>
-                <div className="Team-Schedule">다음 회의 일정</div>
-                <div className="Team-Date">{team.schedule}</div>
-              </div>
-            ))}
-          </div>
+<div
+  className="MyTeam-Slider"
+  ref={sliderRef}
+  onMouseDown={handleMouseDown}
+>
+  {/* 새 팀 카드 */}
+  <div
+    className="Team-Card-New-Team-Card"
+    onClick={handleCreateTeam}
+  >
+    <Image
+      className="TeamAddButton"
+      src="/images/TeamAddButton.png"
+      alt="teamAdd"
+      width={50}
+      height={50}
+    />
+  </div>
+
+  {/* 로딩 상태 처리 (선택) */}
+  {loading && <p style={{ padding: '20px' }}>로딩 중…</p>}
+
+  {/* 실제 팀 카드 */}
+  {teamList.map((team) => (
+    <div key={team.id} className="Team-Card">
+      <div className="Team-Name">{team.teamName}</div>
+
+      {/* 일정 정보가 아직 없으므로 임시 표기 */}
+      <div className="Team-Schedule">다음 회의 일정</div>
+      <div className="Team-Date">미정</div>
+    </div>
+  ))}
+</div>
+
         </div>
       </div>
 
