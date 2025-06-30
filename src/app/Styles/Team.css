@@ -273,6 +273,12 @@
   font-family: 'Pretendard-Medium';
 }
 
+.profile-role-leader {
+  font-size: 13px;
+  font-family: 'Pretendard-Medium';
+  color: #FFB006;
+}
+
 .member-state {
   display: flex;
   align-items: center;

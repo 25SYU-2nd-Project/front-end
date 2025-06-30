@@ -281,7 +281,7 @@ useEffect(() => {
                           />
                         </div>
                         <div className='profile-name'>{member.name}</div>
-                        <div className='profile-role'>{member.role}</div>
+                        <div className={member.role === '팀장' ? 'profile-role-leader' : 'profile-role'}>{member.role}</div>
                       </div>
                       {isLeader && (
                       <div className='member-state'>
