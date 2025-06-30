@@ -109,6 +109,7 @@
 .team-calendar-box {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 82vw;
   height: 17%;
   border-radius: 20px;
@@ -138,7 +139,6 @@
   display: flex;
   justify-content: center;
   gap: 2vw;
-  padding: 1vh 0;
 }
 
 .calendar-oneday {
