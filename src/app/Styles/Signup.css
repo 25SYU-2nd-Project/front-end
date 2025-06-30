@@ -1,0 +1,96 @@
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signup-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20vh;
+    padding-bottom: 5vh;
+    background-color: var(--background);
+  }
+  
+  .signup-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-image {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+  
+  .signup-logo-title {
+    font-family: 'Montserrat-Bold';
+    font-size: 3rem;
+    color: #ffff;
+  }
+  
+  .signup-logo-title-yellow {
+    font-family: 'Montserrat-Bold';
+    font-size: 3rem;
+    color: #FFB006;
+  }
+  
+  .signup-body {
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .signup-box {
+    width: 80vw;
+    height: 45vh;
+    border-radius: 15px;
+    background-color: #D9D9D9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5vh 5vw;
+  }
+
+  .signup-title {
+    font-family: 'Montserrat-Bold';
+    font-size: 1.3rem;
+    color: #000;
+    align-self: flex-start;
+  }
+
+  .signup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    gap: 1.5vh;
+  }
+
+  .signup-input {
+    height: 4.5vh;
+    padding: 0 13px;
+    border-radius: 8px;
+    border: none;
+    background-color: #BDBDBD;
+  }
+
+
+  .signup-btn {
+    width: 100%;
+    height: 4.5vh;
+    border-radius: 8px;
+    border: none;
+    font-family: 'Pretendard-Bold';
+    font-size: 1.2rem;
+    background-color: #796558;
+    color: #ffff;
+  }
+
+  .signup-error {
+    color: #BE3838;
+    font-size: 0.6rem;
+  }

@@ -1,0 +1,145 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20vh;
+    padding-bottom: 5vh;
+    background-color: var(--background);
+  }
+  
+  .login-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .login-logo-image {
+    object-fit: contain;
+  }
+  
+  .login-logo-title {
+    font-family: 'Montserrat-Bold';
+    font-size: 3rem;
+    color: #ffff;
+  }
+  
+  .login-logo-title-yellow {
+    font-family: 'Montserrat-Bold';
+    font-size: 3rem;
+    color: #FFB006;
+  }
+  
+  .login-body {
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-box {
+    width: 80vw;
+    height: 40vh;
+    border-radius: 15px;
+    background-color: #D9D9D9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5vh 5vw;
+  }
+
+  .login-title {
+    font-family: 'Montserrat-Bold';
+    font-size: 1.3rem;
+    color: #000;
+    align-self: flex-start;
+  }
+
+  .login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    gap: 1.5vh;
+  }
+
+  .login-input {
+    height: 4.5vh;
+    padding: 0 13px;
+    border-radius: 8px;
+    border: none;
+    background-color: #BDBDBD;
+  }
+
+  .login-state {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Pretendard-Medium';
+    font-size: 13px;
+    color: #C0C0C0;
+  }
+
+  .login-state-btn {
+    appearance: none;
+    width: 3.5vw;
+    height: 3.5vw;
+    border-radius: 50%;
+    border: 1px, solid;
+    border-color: #727272;
+    
+  }
+  input[type='radio']:checked {
+  background-color: #796558;
+  border: 2px solid #D9D9D9; 
+  box-shadow: 0 0 0 1px #727272; 
+}
+
+  .login-state-btn &:checked {
+      background-color: #000;
+  }
+
+  .login-state-text {
+    font-family: 'Pretendard-Medium';
+    font-size: 13px;
+    color: #C0C0C0;
+  }
+
+  .login-btn {
+    width: 100%;
+    height: 4.5vh;
+    border-radius: 8px;
+    border: none;
+    font-family: 'Pretendard-Bold';
+    font-size: 1.2rem;
+    background-color: #796558;
+    color: #ffff;
+  }
+
+  .login-error {
+    color: #BE3838;
+    font-size: 0.6rem;
+  }
+
+  .login-toSignup {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .login-toSignup-text {
+    font-family: 'Pretendard-Regular';
+    font-size: 14px;
+  }
+
+  .login-toSignup-router {
+    font-family: 'Pretendard-Regular';
+    font-size: 14px;
+    color: #796558;
+  }
