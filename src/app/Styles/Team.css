@@ -1,3 +1,16 @@
+* {
+  box-sizing: border-box;
+}
+
+.teampage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100vw;
+  height: 100vh;
+}
+
 .team-container {
   display: flex;
   justify-content: center;
@@ -31,10 +44,9 @@
   font-size: 20px;
 }
 
-/* .team-header-select-text {
-    
-  
-} */
+.team-header-select-text {
+  font-family: 'Pretendard-Bold';
+} 
 
 .dropdown {
   display: inline-block;
@@ -44,6 +56,7 @@
 }
 
 .dropdown-teamname {
+  font-family: 'Pretendard-Bold';
   color: #796558;
 }
 
@@ -81,12 +94,13 @@
   height: 12%;
   padding: 0 20px;
   border-radius: 20px;
-  background-color: var(--background);
+  background-color: #35486D;
   box-shadow: 0 4px 4px rgba(0,0,0,0.2);
 }
 
 .team-list-text {
   font-size: 24px;
+  font-family: 'Pretendard-Semibold';
   color: #fff;
 }
 
@@ -98,7 +112,7 @@
   width: 82vw;
   height: 17%;
   border-radius: 20px;
-  background-color: var(--background);
+  background-color: #35486D;
   font-size: 12px;
   padding: 15px 20px;
   box-shadow: 0 4px 4px rgba(0,0,0,0.2);
@@ -170,12 +184,14 @@
   border: 2px solid #FFB006;
 }
 
-/* .date-text {
-} */
+.date-text {
+  font-family: 'Pretendard-Regular';
+} 
 
 .schedule-text {
   color: #FFB006;
   font-size: 7px;
+  font-family: 'Pretendard-Medium';
 }
 
 
@@ -193,12 +209,13 @@
   height: 16%;
   padding: 0 20px;
   border-radius: 20px 20px 0 0;
-  background-color: var(--background);
+  background-color: #35486D;
   gap: 5px;
 }
 
 .member-title-text {
   font-size: 20px;
+  font-family: 'Pretendard-Semibold';
   color: #fff;
 }
 
@@ -209,6 +226,7 @@
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #b1b1b1 #f0f0f0;
+  padding-bottom: 0.8vh;
 }
 
                     
@@ -247,6 +265,7 @@
 
 .profile-name {
   font-size:15px;
+  font-family: 'Pretendard-Semibold';
 }
 
 .profile-role {

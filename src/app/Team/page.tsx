@@ -19,7 +19,6 @@ type Team = {
   mem: Member[];
 };
 
- 
 
 
 export default function Team() {
@@ -140,7 +139,7 @@ const getWeekNumber = (date: Date): number => {
   return Math.ceil((currentDate + firstDayWeekDay) / 7);
 }
  
-
+/*
 useEffect(() => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (!token) {
@@ -162,17 +161,17 @@ useEffect(() => {
   }, []);
 
   if (error) return <div>{error}</div>;
-  if (!user) return <div>유저 정보 불러오는 중...</div>;
+  if (!user) return <div>유저 정보 불러오는 중...</div>;*/
 
   return (
-    <>
+    <div className='teampage-container'>
     <Header />
     <div className='team-container'>
       <div className='team-box'>
         <div className='team-header'>
           <div className='team-header-select'>
             <Image className='team-header-select-img' src="/images/users.png" alt="usersImg" width={24} height={24} />
-            <span className='team-header-select-text'>마이 팀 -</span>
+            <p className='team-header-select-text'>마이 팀 -</p>
             <div onClick={toggleDropdown} className='dropdown'>
               <span className='dropdown-teamname'>{selectedTeam}</span>
               <Image className='down-img' src="/images/caret-down.png" alt="downImg" width={24} height={24} />
@@ -206,7 +205,7 @@ useEffect(() => {
           <Image className='search-img' src="/images/search.png" alt="searchImg" width={24} height={24}></Image>
         </div>
 
-        <div onClick={() => router.push('/List')} className='team-list-box'>
+        <div onClick={() => router.push('/Brief')} className='team-list-box'>
           <span className='team-list-text'> 팀 회의록 보기</span>
           <Image className='team-list-vector-img' src="/images/Vector-next.png" alt="vectorImg" width={20} height={30}></Image>
         </div>
@@ -319,6 +318,6 @@ useEffect(() => {
       </div>
     </div>
     <Footer />
-    </>
+    </div>
   );
 }
