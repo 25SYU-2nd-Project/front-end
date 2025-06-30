@@ -1,14 +1,24 @@
 'use client'
+import React from 'react';
+import '../Styles/component.css';
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import './component.css'
 
-
-export default function Footer(){
-    return(
-        <div className="footer-box">
-            <Image className='home-button' src="/images/HomeButton.png" alt="home" width={50} height={50} />
-            <Image className='team-button' src="/images/TeamButton.png" alt="team" width={50} height={50} />
-            <Image className='mypage-button' src="/images/MyPageButton.png" alt="mypage" width={50} height={50} />
-        </div>
-    )
-}
+export default function Footer() {
+  const router = useRouter();
+  return (
+    <div className="footer">
+      <div className="footer-box">
+        <button onClick={() => router.push('/Main')} className='footer-btn'>
+          <Image className='img-home' src="/images/home.png" alt="homeImg" width={30} height={30}></Image>
+        </button>
+        <button onClick={() => router.push('/Team')} className='footer-btn'>
+          <Image className='img-team' src="/images/people.png" alt="teamImg" width={30} height={30}></Image>
+        </button>
+        <button onClick={() => router.push('/Main')} className='footer-btn'>
+          <Image className='img-user' src="/images/user.png" alt="userImg" width={30} height={30}></Image>
+        </button>
+      </div>
+    </div>
+  );
+};

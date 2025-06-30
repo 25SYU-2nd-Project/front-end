@@ -1,0 +1,268 @@
+.team-container {
+  display: flex;
+  justify-content: center;
+}
+
+.team-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 90vw;
+  height: 75vh;
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+
+/* 마이 팀 */
+.team-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 82vw;
+  padding: 2vh 0 1vh 0;
+}
+
+.team-header-select {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 20px;
+}
+
+.team-header-select-text {
+    
+  
+}
+
+.dropdown {
+  display: inline-block;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-teamname {
+  color: #796558;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  width: 109px;
+  background-color: #796558;
+  border-radius: 0 10px 10px 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-content li {
+  display: block;
+  color: #fff;
+  font-size: 10px;
+  font-family: 'Pretendard-Regular';
+  padding: 5px 8px;
+  display: flex;
+  gap: 5px;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(121, 101, 88, 0.95);
+}
+
+
+/* 팀 회의록 보기 */
+.team-list-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 82vw;
+  height: 12%;
+  padding: 0 20px;
+  border-radius: 20px;
+  background-color: var(--background);
+  box-shadow: 0 4px 4px rgba(0,0,0,0.2);
+}
+
+.team-list-text {
+  font-size: 24px;
+  color: #fff;
+}
+
+
+/* 캘린더 */
+.team-calendar-box {
+  display: flex;
+  flex-direction: column;
+  width: 82vw;
+  height: 17%;
+  border-radius: 20px;
+  background-color: var(--background);
+  font-size: 12px;
+  padding: 15px 20px;
+  box-shadow: 0 4px 4px rgba(0,0,0,0.2);
+}
+
+.team-calendar-title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #fff;
+  font-family: 'Pretendard-Semibold';
+}
+
+.title-month {
+
+}
+
+.title-week {
+  
+}
+
+.calendar-content {
+  display: flex;
+  justify-content: center;
+  gap: 2vw;
+  padding: 1vh 0;
+}
+
+.calendar-oneday {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 0.8vh;
+ font-family: 'Pretendard-Medium';
+ color: #fff;
+}
+
+.red {
+  color: #BE3838;
+}
+
+.blue {
+  color: #467AFF;
+}
+
+.oneday-day {
+  
+}
+
+.oneday-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5vh;
+}
+
+.date-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 7vw;
+  height: 7vw;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #000;
+}
+
+.schedule {
+  border: 2px solid #FFB006;
+}
+
+.date-text {
+}
+
+.schedule-text {
+  color: #FFB006;
+  font-size: 7px;
+}
+
+
+/* 팀원 */
+.team-member-box {
+  width: 82vw;
+  height: 55%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.team-member-title {
+  display: flex;
+  align-items: center;
+  height: 16%;
+  padding: 0 20px;
+  border-radius: 20px 20px 0 0;
+  background-color: var(--background);
+  gap: 5px;
+}
+
+.member-title-text {
+  font-size: 20px;
+  color: #fff;
+}
+
+.member-content {
+  height: 84%;
+  border-radius: 0 0 20px 20px;
+  background-color: #D9D9D9;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #b1b1b1 #f0f0f0;
+}
+
+                    
+.member-block {
+  display: flex;
+  flex-direction: column;
+  height: 20%;
+}
+
+.member-profile {
+  display: flex;
+  justify-content: space-between;
+  height: 99%;
+  padding: 0 20px;
+}
+
+.member-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+  
+.profile-backimg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #E9E9E9;
+}
+  
+.profile-img {
+
+}
+
+.profile-name {
+  font-size:15px;
+}
+
+.profile-role {
+  font-size: 13px;
+  font-family: 'Pretendard-Medium';
+}
+
+.member-state {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.team-member-line {
+  align-self: center;
+  width: 90%;
+  height: 1%;
+  background-color: #000;
+}

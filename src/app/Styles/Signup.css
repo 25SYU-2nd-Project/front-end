@@ -1,22 +1,19 @@
-.container {
+.signup-container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
 }
 
-.header {
+.signup-header {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 30%;
     padding-top: 20vh;
     padding-bottom: 5vh;
     background-color: var(--background);
   }
   
-  .logo {
+  .signup-logo {
     display: flex;
     align-items: center;
   }
@@ -25,91 +22,75 @@
     width: 32px;
     height: 32px;
     object-fit: contain;
-    margin-right: 10px;
   }
   
-  .logo-title {
+  .signup-logo-title {
     font-family: 'Montserrat-Bold';
-    font-size: 48px;
+    font-size: 3rem;
     color: #ffff;
   }
   
-  .logo-title-yellow {
+  .signup-logo-title-yellow {
     font-family: 'Montserrat-Bold';
-    font-size: 48px;
+    font-size: 3rem;
     color: #FFB006;
   }
   
-  .body {
+  .signup-body {
     width:100%;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  .box {
-    width: 320px;
-    height: 458px;
+  .signup-box {
+    width: 80vw;
+    height: 45vh;
     border-radius: 15px;
     background-color: #D9D9D9;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    padding: 50px 25px;
-    gap: 15px;
+    padding: 5vh 5vw;
   }
 
-  .login-title {
+  .signup-title {
     font-family: 'Montserrat-Bold';
-    font-size: 24px;
+    font-size: 1.3rem;
     color: #000;
     align-self: flex-start;
   }
 
-  .login {
+  .signup {
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    gap: 15px;
+    gap: 1.5vh;
   }
 
-  .input {
-    height: 42px;
+  .signup-input {
+    height: 4.5vh;
     padding: 0 13px;
     border-radius: 8px;
     border: none;
     background-color: #BDBDBD;
   }
 
-  .state {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 5px;
-    font-family: 'Pretendard-Medium';
-    font-size: 13px;
-    color: #C0C0C0;
-  }
 
-  .state-btn {
-    width: 15px;
-    height: 15px;
-  }
-
-  .state-text {
-    font-family: 'Pretendard-Medium';
-    font-size: 13px;
-    color: #C0C0C0;
-  }
-
-  .btn {
+  .signup-btn {
     width: 100%;
-    height: 42px;
+    height: 4.5vh;
     border-radius: 8px;
     border: none;
     font-family: 'Pretendard-Bold';
-    font-size: 24px;
+    font-size: 1.2rem;
     background-color: #796558;
     color: #ffff;
+  }
+
+  .signup-error {
+    color: #BE3838;
+    font-size: 0.6rem;
   }
