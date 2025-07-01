@@ -22,6 +22,10 @@ export default function Login() {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
+
+    // 기존 토큰 초기화
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     
     if (!userId || !userPw ) {
       setError('아이디/이메일 또는 비밀번호를 입력해주세요.');
@@ -49,7 +53,7 @@ export default function Login() {
       });
       
       console.log('내 정보 응답:', res.data);
-      window.location.replace('/Main');
+      window.location.replace('/main');
     } catch (err: any) { 
       console.error('로그인 에러: ', err);
       setError(err.response?.data?.message || '로그인에 실패하였습니다.');
