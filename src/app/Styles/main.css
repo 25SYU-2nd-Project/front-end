@@ -12,6 +12,7 @@
 }
 
 .MyTeam-Box{
+    position: relative;
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
@@ -31,6 +32,7 @@
     height: 24px;
     gap: 217px;
 }
+
 
 .MyTeam-Header-Left{
     display: flex;

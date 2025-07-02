@@ -8,7 +8,7 @@ import Footer from '../Component/Footer';
 import '../Styles/main.css';
 import Image from 'next/image';
 import Link from 'next/link';
-
+import TeamCreateModal from '../Component/TeamCreateModal';
 import api from '../api';
 
 
@@ -29,9 +29,12 @@ export default function MainPage() {
   const [recordingPhase, setRecordingPhase] = useState<'idle' | 'recording' | 'done'>('idle');
 
   const [teamList, setTeamList] = useState<Team[]>([]);
-  const [loading, setLoading]   = useState(true); 
+  const [loading, setLoading] = useState(true);
 
-  
+  const [showCreateModal, setShowCreateModal] = useState(false);
+
+  const handleCreateTeam = () => setShowCreateModal(true);
+
 
   const handleMouseDown = (e: React.MouseEvent) => {
     isDragging.current = true;
@@ -46,16 +49,12 @@ export default function MainPage() {
     setRecordingPhase('idle');
   };
 
-  const handleCreateTeam = () => {
-    router.push('/teamCreate');
-  };
 
-  useEffect(() => {
+
   const fetchTeams = async () => {
-    const token =
-      localStorage.getItem('token') || sessionStorage.getItem('token');
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
 
-    if (!token) {                         // 미로그인 처리
+    if (!token) {
       console.warn('토큰이 없습니다.');
       setLoading(false);
       return;
@@ -68,7 +67,6 @@ export default function MainPage() {
         },
       });
 
-      // id 오름차순 정렬
       const sorted = data.sort((a, b) => a.id - b.id);
       setTeamList(sorted);
     } catch (err) {
@@ -78,61 +76,79 @@ export default function MainPage() {
     }
   };
 
-  fetchTeams();
-}, []);
+  useEffect(() => {
+    fetchTeams();
+  }, []);
+
 
 
   return (
     <div className="Main-Container">
       <Header />
 
-      {/* 팀 카드 영역 */}
-      <div className="MyTeam-Box">
-        <div className="MyTeam-Header">
-          <div className="MyTeam-Header-Left">
-            <Image className="MyTeam-Logo" src="/images/userImg.png" alt="MyteamLogo" width={24} height={24} />
-            <p className="MyTeam-Header-Text">마이 팀</p>
-          </div>
-          <Image className="MyTeam-Search" src="/images/search.png" alt="SearchImg" width={24} height={24} />
-        </div>
+{/* 팀 카드 박스 */}
+<div className="MyTeam-Box">
+  {/* 헤더 */}
+  <div className="MyTeam-Header">
+    <div className="MyTeam-Header-Left">
+      <Image
+        className="MyTeam-Logo"
+        src="/images/userImg.png"
+        alt="MyteamLogo"
+        width={24}
+        height={24}
+      />
+      <p className="MyTeam-Header-Text">마이 팀</p>
+    </div>
 
-        <div className="MyTeam-Content">
-<div
-  className="MyTeam-Slider"
-  ref={sliderRef}
-  onMouseDown={handleMouseDown}
->
-  {/* 새 팀 카드 */}
-  <div
-    className="Team-Card-New-Team-Card"
-    onClick={handleCreateTeam}
-  >
-    <Image
-      className="TeamAddButton"
-      src="/images/TeamAddButton.png"
-      alt="teamAdd"
-      width={50}
-      height={50}
-    />
+    <div className="MyTeam-Header-Right">
+      <Image
+        className="MyTeam-Search"
+        src="/images/search.png"
+        alt="Search"
+        width={24}
+        height={24}
+      />
+    </div>
   </div>
 
-  {/* 로딩 상태 처리 (선택) */}
-  {loading && <p style={{ padding: '20px' }}>로딩 중…</p>}
+  {/* 팀 카드 리스트 */}
+  <div className="MyTeam-Content">
+    <div className="MyTeam-Slider" ref={sliderRef} onMouseDown={handleMouseDown}>
+      {/* 새 팀 생성 카드 */}
+      <div className="Team-Card-New-Team-Card" onClick={() => setShowCreateModal(true)}>
+        <Image
+          className="TeamAddButton"
+          src="/images/TeamAddButton.png"
+          alt="teamAdd"
+          width={50}
+          height={50}
+        />
+      </div>
 
-  {/* 실제 팀 카드 */}
-  {teamList.map((team) => (
-    <div key={team.id} className="Team-Card">
-      <div className="Team-Name">{team.teamName}</div>
+      {/* 로딩 상태 */}
+      {loading && <p style={{ padding: '20px' }}>로딩 중…</p>}
 
-      {/* 일정 정보가 아직 없으므로 임시 표기 */}
-      <div className="Team-Schedule">다음 회의 일정</div>
-      <div className="Team-Date">미정</div>
+      {/* 팀 목록 */}
+      {teamList.map((team) => (
+        <div key={team.id} className="Team-Card">
+          <div className="Team-Name">{team.teamName}</div>
+          <div className="Team-Schedule">다음 회의 일정</div>
+          <div className="Team-Date">미정</div>
+        </div>
+      ))}
     </div>
-  ))}
+  </div>
 </div>
 
-        </div>
-      </div>
+{/* 생성 모달 겹쳐서 띄우기 */}
+{showCreateModal && (
+  <TeamCreateModal
+    onClose={() => setShowCreateModal(false)}
+    onSuccess={fetchTeams}
+  />
+)}
+
 
       {/* 녹음 / 요약 영역 */}
       {recordingPhase === 'idle' ? (
@@ -177,24 +193,24 @@ export default function MainPage() {
               />
             </div>
           </div>
-                      <div className="Record-Voice-Summary-Clipboard">
-              <p
-                className="Save-Label"
-                style={{ cursor: 'pointer' }}
-                onClick={() => {
-                  const textarea = document.getElementById('manual-summary') as HTMLTextAreaElement;
-                  const text = textarea?.value.trim();
-                  if (text) {
-                    navigator.clipboard.writeText(text);
-                    alert('클립보드에 복사되었습니다.');
-                  } else {
-                    alert('복사할 내용이 없습니다.');
-                  }
-                }}
-              >
-                클립보드에 저장
-              </p>
-            </div>
+          <div className="Record-Voice-Summary-Clipboard">
+            <p
+              className="Save-Label"
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                const textarea = document.getElementById('manual-summary') as HTMLTextAreaElement;
+                const text = textarea?.value.trim();
+                if (text) {
+                  navigator.clipboard.writeText(text);
+                  alert('클립보드에 복사되었습니다.');
+                } else {
+                  alert('복사할 내용이 없습니다.');
+                }
+              }}
+            >
+              클립보드에 저장
+            </p>
+          </div>
         </div>
       ) : (
         <QuickRecord

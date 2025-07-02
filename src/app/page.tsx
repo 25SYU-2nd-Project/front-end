@@ -98,7 +98,7 @@ console.log('내 정보 응답:', res.data);
             {error && <div className='login-error'>{error}</div>}
             <div className='login-toSignup'>
               <p className='login-toSignup-text'>Brief-Log가 처음이라면? </p>
-              <p onClick={() => router.push('/Signup')} className='login-toSignup-router'>회원가입</p>
+              <p onClick={() => router.push('/join')} className='login-toSignup-router'>회원가입</p>
             </div>
           </form>
         </div>
