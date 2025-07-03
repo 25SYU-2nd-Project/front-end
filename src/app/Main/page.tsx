@@ -8,8 +8,8 @@ import Footer from '../Component/Footer';
 import '../Styles/main.css';
 import Image from 'next/image';
 import Link from 'next/link';
-
 import api from '../api';
+import TeamSearchModal from '../Component/TeamSearchModal';
 
 
 /** 백엔드 응답 타입 */
@@ -31,6 +31,9 @@ export default function MainPage() {
   const [teamList, setTeamList] = useState<Team[]>([]);
   const [loading, setLoading]   = useState(true); 
 
+    // 팀 검색 모달
+  const [showSearchModal, setShowSearchModal] =useState(false);
+  const handleSearchModal = () => setShowSearchModal(true);
   
 
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -93,7 +96,14 @@ export default function MainPage() {
             <Image className="MyTeam-Logo" src="/images/userImg.png" alt="MyteamLogo" width={24} height={24} />
             <p className="MyTeam-Header-Text">마이 팀</p>
           </div>
-          <Image className="MyTeam-Search" src="/images/search.png" alt="SearchImg" width={24} height={24} />
+          <Image
+            className="MyTeam-Search"
+            src="/images/search.png"
+            alt="SearchImg"
+            width={24}
+            height={24}
+            onClick={() => setShowSearchModal(true)}
+          />
         </div>
 
         <div className="MyTeam-Content">
@@ -133,6 +143,13 @@ export default function MainPage() {
 
         </div>
       </div>
+
+      {/* 팀 검색 모달 */}
+      {showSearchModal && (
+        <TeamSearchModal
+          onClose={() => setShowSearchModal(false)}
+        />
+      )}
 
       {/* 녹음 / 요약 영역 */}
       {recordingPhase === 'idle' ? (
