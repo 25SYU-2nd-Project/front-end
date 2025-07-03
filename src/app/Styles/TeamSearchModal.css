@@ -1,0 +1,134 @@
+.Modal-Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4); 
+  /* z-index: 100; 모달보다 아래, 일반 화면보단 위 */
+}
+
+
+.Modal-Container {
+    position: absolute;  
+    top: 49px; 
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    width: 355px;
+    height: 495px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    margin-top: 32px;
+    min-height: 255px;           /* 최소 높이만 지정해서 유연하게 */
+    padding-bottom: 10px;
+}
+
+.Team-Search-Modal-Header {
+    margin-top: 20px;
+    display: flex;
+    height: 24px;
+    gap: 147px;
+}
+
+.Team-Search-Modal-Header-Left {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.Modal-Header-Text {
+    font-family: 'Pretendard-Bold';
+    font-size: 20px;
+    color: #38414D;
+}
+
+.Team-Search-Modal-Input-Box {
+    display: flex;
+    align-items: center;
+    width: 326px;
+    height: 48px;
+    margin-top: 33px;
+    padding: 0 15px;
+    border-radius: 16px;
+    background-color: #F6F8FB;
+}
+
+.Team-Search-Modal-Input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-family: 'Pretendard-Medium';
+    font-size: 15px;
+    padding: 0 15px;
+}
+
+.Team-Search-Modal-Input::placeholder {
+    font-family: 'Pretendard-Medium';
+    font-size: 15px;
+}
+
+.Modal-Error-Box {
+    display: flex;
+    align-self: flex-end;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-right: 16px;
+}
+
+.Modal-Loading-Message {
+    font-size: 8px;
+    font-family: 'Pretendard-Bold';
+    color: #000;
+}
+
+.Modal-Success-Message {
+    font-size: 8px;
+    font-family: 'Pretendard-Bold';
+    color: #2E70EB;
+}
+
+.Modal-Error-Message {
+    font-size: 8px;
+    font-family: 'Pretendard-Bold';
+    color: #BE1C1C;
+}
+
+.Team-Search-Modal-Teamlist {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.Team-Search-Modal-Teamlist-Block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 12.5%;
+    background-color: #fff;
+}
+
+.Team-Search-Modal-Teamlist-Content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 97%;
+    padding: 0 20px;
+}
+
+.Team-Search-Modal-Teamlist-Name {
+    font-family: 'Pretendard-Semibold';
+    font-size: 15px;
+}
+
+.Team-Search-Modal-Teamlist-Line {
+    width: 90%;
+    height: 3%;
+    background-color: #000;
+}
