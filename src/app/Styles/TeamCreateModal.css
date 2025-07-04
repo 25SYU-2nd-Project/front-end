@@ -1,0 +1,94 @@
+.Modal-Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4); 
+  /* z-index: 100; 모달보다 아래, 일반 화면보단 위 */
+}
+
+
+.Modal-Container {
+    position: absolute;  
+    top: 49px; 
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    width: 355px;
+    /* height: 199px; */
+    background-color: #ffffff;
+    border-radius: 20px;
+    margin-top: 32px;
+    min-height: 209px;           /* 최소 높이만 지정해서 유연하게 */
+    padding-bottom: 10px;
+}
+
+.Team-Create-Modal-Header {
+    margin-top: 20px;
+    display: flex;
+    height: 24px;
+    gap: 147px;
+}
+
+.Team-Create-Modal-Header-Left {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.Modal-Header-Text {
+    font-family: 'Pretendard-Bold';
+    font-size: 20px;
+    color: #38414D;
+}
+
+.Team-Create-Modal-Input {
+    width: 326px;
+    height: 48px;
+    margin-top: 33px;
+    border-radius: 16px;
+    border: none;
+    background-color: #F6F8FB;
+    outline: none;
+    font-family: 'Pretendard-Medium';
+    font-size: 15px;
+    padding-left: 22px;
+    padding-right: 22px;
+}
+
+.Team-Create-Modal-Input::placeholder {
+    font-family: 'Pretendard-Medium';
+    font-size: 15px;
+}
+
+.Team-Create-Modal-Button {
+    display: flex;
+    flex-direction: column;
+    width: 326px;
+    height: 34px;
+    background-color: #2E70EB;
+    border-radius: 16px;
+    /* text-align: center; */
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-family: 'Pretendard-Bold';
+    color: #ffffff;
+    /* margin-top: 21px; */
+}
+
+.Modal-Error-Box {
+    display: flex;
+    align-self: flex-end;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-right: 16px;
+}
+
+.Modal-Error-Message{
+    font-size: 8px;
+    font-family: 'Pretendard-Bold';
+    color: #BE1C1C;
+}
