@@ -109,9 +109,9 @@
 .team-calendar-box {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   width: 82vw;
   height: 17%;
+  gap: 1vh;
   border-radius: 20px;
   background-color: #35486D;
   font-size: 12px;

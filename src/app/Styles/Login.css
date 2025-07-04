@@ -91,8 +91,8 @@
 
   .login-state-btn {
     appearance: none;
-    width: 3.5vw;
-    height: 3.5vw;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     border: 1px, solid;
     border-color: #727272;
