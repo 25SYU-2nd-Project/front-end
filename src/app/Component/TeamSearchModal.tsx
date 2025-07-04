@@ -23,11 +23,16 @@ export default function TeamSearchModal({ onClose }: TeamSearchModalProps) {
 
   // 팀 이름 검색
   const handleSearchTeam = async () => {
-    if (!searchTeam.trim()) return;
-
     setLoading(true);
     setMessage('');
     setError('');
+
+    if (!searchTeam.trim())  {
+        setError('검색어를 입력하세요.');
+        setLoading(false);
+        return;
+    }
+
     try {
       const response = await api.get(`/teams/search?name=${searchTeam}`);
       setTeams(response.data);
@@ -42,6 +47,13 @@ export default function TeamSearchModal({ onClose }: TeamSearchModalProps) {
   const handleRequestTeam = async (teamId: number) => {
     setError('');
     setMessage('');
+
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    if (!token) {
+        setError('로그인이 필요합니다.');
+        return;
+    }
+
     try {
       const response = await api.post(`/teams/${teamId}/request`);
       setMessage(response.data || '가입 신청이 완료되었습니다.');

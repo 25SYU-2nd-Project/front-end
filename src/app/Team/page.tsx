@@ -38,20 +38,24 @@ export default function Team() {
 
   // 로그인한 사용자 정보 조회
    useEffect(() => {
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    if (!token) {
-      setError('로그인이 필요합니다.');
-      return;
+    const fetchUserInfo = async () => {
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+      if (!token) {
+        setError('로그인이 필요합니다.');
+        return;
+      }
+
+      try {
+        const res = await api.get('/users/me');
+        const userId = res.data.split(':')[1]?.trim();
+        console.log('유저정보 응답:', userId);
+        setUserId(userId);
+      } catch (err: any) {
+        setError(err.response?.data?.message || '유저 정보 조회 실패');
+      }
     }
-
-    api.get('/users/me')
-    .then(res => {
-      const userId = res.data.split(':')[1]?.trim();
-      console.log('유저정보 응답:', userId);
-      setUserId(userId);
-    })
-
-    .catch(err => setError(err.response?.data?.message || '유저 정보 조회 실패'));
+    
+    fetchUserInfo();
   }, []);
 
   // 팀 선택
@@ -64,19 +68,21 @@ export default function Team() {
 
   // 팀 목록 조회
   useEffect(() => {
-    api.get('/teams/my-teams')
-    .then(res => {
-      const data: Team[] = res.data;
-      console.log('팀 목록:', data);
-      setTeamList(data);
-      setSelectedTeam(data[0]?.teamName || '');
-      setTeamId(data[0]?.id || null);
-    })
-    .catch(err => {
-      console.error('팀 불러오기 실패:', err);
-      setError('팀 정보를 불러올 수 없습니다.');
-    });
+    const fetchTeams = async () => {
+      try {
+        const res = await api.get('/teams/my-teams');
+        const data: Team[] = res.data;
+        console.log('팀 목록:', data);
+        setTeamList(data);
+        setSelectedTeam(data[0]?.teamName || '');
+        setTeamId(data[0]?.id || null);
+      } catch (err) {
+        console.error('팀 불러오기 실패:', err);
+        setError('팀 정보를 불러올 수 없습니다.');
+      }
+    }
 
+    fetchTeams();
   }, []);
 
   // 팀장 여부 확인
@@ -218,21 +224,6 @@ console.log("token", token);
     }
   };
 
-  // 캘린더
-  const [baseDate, setBaseDate] = useState(new Date());
-  const weekDates = getWeekDates(baseDate);
-
-  const handlePrevWeek = () => {
-    const prevWeek = new Date(baseDate);
-    prevWeek.setDate(baseDate.getDate() - 7);
-    setBaseDate(prevWeek);
-  };
-
-  const handleNextWeek = () => {
-    const nextWeek = new Date(baseDate);
-    nextWeek.setDate(baseDate.getDate() + 7);
-    setBaseDate(nextWeek);
-  };
 
   // 캘린더
   const monthArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -242,12 +233,12 @@ console.log("token", token);
     { date: '2025-07-02', title: '회의' },
   ]; // 추후 수정
 
-  function getWeekDates(baseDate: Date): string[] {
+  const getWeekDates = (baseDate: Date): string[] => {
     const day = baseDate.getDay();
     const sunday = new Date(baseDate);
     sunday.setDate(baseDate.getDate() - day);
 
-    const result = [];
+    const result: string[] = [];
     for (let i = 0; i < 7; i++) {
       const d = new Date(sunday);
       d.setDate(sunday.getDate() + i);
@@ -263,6 +254,24 @@ console.log("token", token);
     const currentDate = date.getDate();
 
     return Math.ceil((currentDate + firstDayWeekDay) / 7);
+  };
+
+  // 캘린더
+  const [baseDate, setBaseDate] = useState(new Date());
+  const weekDates = getWeekDates(baseDate);
+
+  // 이전 주 조회
+  const handlePrevWeek = () => {
+    const prevWeek = new Date(baseDate);
+    prevWeek.setDate(baseDate.getDate() - 7);
+    setBaseDate(prevWeek);
+  };
+
+  // 다음 주 조회
+  const handleNextWeek = () => {
+    const nextWeek = new Date(baseDate);
+    nextWeek.setDate(baseDate.getDate() + 7);
+    setBaseDate(nextWeek);
   };
  
 
