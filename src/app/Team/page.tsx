@@ -86,82 +86,43 @@ export default function Team() {
   }, []);
 
   // 팀장 여부 확인
-  const [leaderId, setLeaderId] =useState<string>('');
-  const isLeader = true; // 추후 수정
-  //const isLeader = userId === leaderId;
-
-useEffect(() => {
-  const fetchLeaderId = async () => {
-    if (!teamId) return;
-
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    if (!token) return;
-console.log("token", token);
-    try {
-      const res = await api.get(`/teams/${teamId}/leader`);
-
-      console.log("리더 ID:", res.data);
-    } catch (err: any) {
-      console.error("❌ 리더 조회 실패");
-      console.error("상태 코드:", err.response?.status);
-      console.error("에러 메시지:", err.response?.data || "응답 없음");
-    }
-  };
-  fetchLeaderId();
-}, [teamId]);
-
-
-
-/*
+  const [leaderId, setLeaderId] = useState<string>('');
+  const isLeader = userId === leaderId;
 
   useEffect(() => {
+    if (!teamId) return;
+
     const fetchisLeader = async () => {
       try {
-        const res = await api.get(`/teams/${selectedTeamId}/leader`);
-        console.log("res" , res.data);
-        const leaderUserId = res.data;
-        setIsLeader(user.userId === leaderUserId); 
+        const res = await api.get(`/teams/${teamId}/leader`);
+        setLeaderId(res.data);
       } catch (err) {
         console.error('팀장 여부 조회 실패', err);
       }
     };
     
-    if (selectedTeamId) {
-      fetchisLeader();
-    }
-  }, [user, selectedTeamId]);*/
+    fetchisLeader();
+  }, [teamId]);
 
   // 대기자, 멤버 목록 조회
   const [pendingList, setPendingList] = useState<pendingMembers[]>([]);
   const [memberList,  setMemberList]  = useState<members[]>([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (!teamId || !isLeader) return;
+  // 멤버 목록 조회
+   useEffect(() => {
+    if (!teamId) return;
 
     const fetchMembers = async () => {
       setLoading(true);
       setError('');
 
       try {
-        const [pendingRes, memberRes] = await Promise.all ([
-          api.get(`/teams/${teamId}/pending-members`),
-          api.get(`/teams/${teamId}/members`),
-        ]);
-
-        // 대기자 리스트
-        setPendingList (
-          pendingRes.data.map((m: any) => ({
-            userTeamId: m.userTeamId,
-            userId: m.userId,
-            userName: m.userName,
-            userLoginId: m.userLoginId,
-          }))
-        );
-
+        const res = await api.get(`/teams/${teamId}/members`);
+      
         // 멤버 리스트
         setMemberList(
-          memberRes.data.map((m: any) => ({
+          res.data.map((m: any) => ({
             id: m.id,
             userId: m.userId,
             userName: m.userName,
@@ -169,7 +130,7 @@ console.log("token", token);
         );
 
       } catch (error: any) {
-        setError(error.response?.data?.message || "목록 조회 실패");
+        setError(error.response?.data?.message || "멤버 목록 조회 실패");
       } finally {
         setLoading(false);
       }
@@ -178,7 +139,50 @@ console.log("token", token);
     fetchMembers();
   }, [teamId]);
 
-  // 팀원 수락하기
+  // 대기자 목록 조회 (팀장만)
+   useEffect(() => {
+    if (!teamId || !userId || !leaderId) return;
+    if (!isLeader) return;
+
+    const fetchPendingMembers = async () => {
+      setLoading(true);
+      setError('');
+
+      try {
+        const res = await api.get(`/teams/${teamId}/pending-members`);
+        console.log("대기자 응답: ", res.data);
+        // 대기자 리스트
+        setPendingList (
+          res.data.map((m: any) => ({
+            userTeamId: m.userTeamId,
+            userId: m.userId,
+            userName: m.userName,
+            userLoginId: m.userLoginId,
+          }))
+        );
+
+      } catch (error: any) {
+        setError(error.response?.data?.message || "대기자 목록 조회 실패");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPendingMembers();
+  }, [teamId, userId, leaderId, isLeader]);
+
+
+  console.log("teamId", teamId);
+console.log("userId", userId);
+console.log("leaderId", leaderId);
+console.log("isLeader", isLeader);
+
+
+  console.log("pending",pendingList);
+  console.log("member",memberList);
+
+
+  // 가입 신청 팀원 수락하기
   const handleAcceptMember = async (userTeamId: number) => {
     if (!teamId) return;
 
@@ -208,7 +212,7 @@ console.log("token", token);
     }
   };
 
-  // 팀원 삭제하기
+  // 가입 신청 팀원 거절하기
   const handleDeleteMember = async (userTeamId: number) => {
     if (!teamId) return;
 
@@ -388,7 +392,7 @@ console.log("token", token);
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {memberList.map((member, idx) => {
               return (
-                <div key={idx} className='member-block'>
+                <div key={`member-${idx}`} className='member-block'>
                   <div className='member-profile'>
                     <div className='member-info'>
                       <div className='profile-backimg'>
@@ -401,16 +405,16 @@ console.log("token", token);
                         />
                       </div>
                       <div className='profile-name'>{member.userName}</div>
-                      <div className='profile-role'>팀원</div>
+                      {member.userId === leaderId ? <div className='profile-role-leader'>팀장</div> : <div className='profile-role'>팀원</div>}
                     </div>
                   </div>
                   {idx !== memberList.length + pendingList.length - 1 && <div className='team-member-line'></div>}
                 </div>
               )
             })}
-            {pendingList.map((member, idx) => {
+            {isLeader && pendingList.map((member, idx) => {
               return (
-                <div key={idx} className='member-block'>
+                <div key={`pending-${idx}`} className='member-block'>
                   <div className='member-profile'>
                     <div className='member-info'>
                       <div className='profile-backimg'>
@@ -423,7 +427,7 @@ console.log("token", token);
                         />
                       </div>
                       <div className='profile-name'>{member.userName}</div>
-                      <div className='profile-role'>팀원</div>
+                      {member.userLoginId === leaderId && <div className='profile-role-leader'>팀장</div> || <div className='profile-role'>팀원</div>}
                     </div>
                     {isLeader && (
                     <div className='member-state'>

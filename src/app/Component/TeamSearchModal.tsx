@@ -68,7 +68,7 @@ export default function TeamSearchModal({ onClose }: TeamSearchModalProps) {
             <div className="Modal-Overlay" onClick={onClose} />
 
             {/* 모달 창 */}
-            <div className="Modal-Container">
+            <div className="Search-Modal-Container">
                 <div className="Team-Search-Modal-Header">
                     <div className="Team-Search-Modal-Header-Left">
                         <Image src="/images/userImg.png" alt="logo" width={24} height={24} />

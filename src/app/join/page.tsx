@@ -2,7 +2,7 @@
 import '../Styles/Signup.css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation'
-import axios from 'axios';
+import api from '../api'
 import Image from 'next/image'
 
 export default function Signup() {
@@ -27,7 +27,7 @@ export default function Signup() {
     }
 
     try {
-      await axios.post('http://15.164.96.236:8080/users/join', {
+      await api.post('/users/join', {
         userId,
         userPw,
         userName,
@@ -60,32 +60,28 @@ export default function Signup() {
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
               placeholder='아이디/이메일'
-              required>
-            </input>
+            />
             <input
               type='password'
               className='signup-input'
               value={userPw}
               onChange={(e) => setUserPw(e.target.value)}
               placeholder='비밀번호'
-              required>
-            </input>
+            />
             <input
               type='password'
               className='signup-input'
               value={confirmUserPw}
               onChange={(e) => setConfirmUserPw(e.target.value)}
               placeholder='비밀번호 재확인'
-              required>
-            </input>
+            />
             <input 
               type='text'
               className='signup-input'
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
               placeholder='이름'
-              required>
-            </input>
+            />
             <button type='submit' className='signup-btn'>회원가입</button>
             {error && <div className='signup-error'>{error}</div>}
           </form>
