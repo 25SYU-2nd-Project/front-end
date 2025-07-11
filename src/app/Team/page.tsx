@@ -33,11 +33,11 @@ export default function Team() {
   const [error, setError] = useState('');
 
   // 팀 검색 모달
-  const [showSearchModal, setShowSearchModal] =useState(false);
+  const [showSearchModal, setShowSearchModal] = useState(false);
   const handleSearchModal = () => setShowSearchModal(true);
 
   // 로그인한 사용자 정보 조회
-   useEffect(() => {
+  useEffect(() => {
     const fetchUserInfo = async () => {
       const token = localStorage.getItem('token') || sessionStorage.getItem('token');
       if (!token) {
@@ -54,7 +54,7 @@ export default function Team() {
         setError(err.response?.data?.message || '유저 정보 조회 실패');
       }
     }
-    
+
     fetchUserInfo();
   }, []);
 
@@ -86,54 +86,54 @@ export default function Team() {
   }, []);
 
   // 팀장 여부 확인
-  const [leaderId, setLeaderId] =useState<string>('');
+  const [leaderId, setLeaderId] = useState<string>('');
   const isLeader = true; // 추후 수정
   //const isLeader = userId === leaderId;
 
-useEffect(() => {
-  const fetchLeaderId = async () => {
-    if (!teamId) return;
-
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    if (!token) return;
-console.log("token", token);
-    try {
-      const res = await api.get(`/teams/${teamId}/leader`);
-
-      console.log("리더 ID:", res.data);
-    } catch (err: any) {
-      console.error("❌ 리더 조회 실패");
-      console.error("상태 코드:", err.response?.status);
-      console.error("에러 메시지:", err.response?.data || "응답 없음");
-    }
-  };
-  fetchLeaderId();
-}, [teamId]);
-
-
-
-/*
-
   useEffect(() => {
-    const fetchisLeader = async () => {
+    const fetchLeaderId = async () => {
+      if (!teamId) return;
+
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+      if (!token) return;
+      console.log("token", token);
       try {
-        const res = await api.get(`/teams/${selectedTeamId}/leader`);
-        console.log("res" , res.data);
-        const leaderUserId = res.data;
-        setIsLeader(user.userId === leaderUserId); 
-      } catch (err) {
-        console.error('팀장 여부 조회 실패', err);
+        const res = await api.get(`/teams/${teamId}/leader`);
+
+        console.log("리더 ID:", res.data);
+      } catch (err: any) {
+        console.error("❌ 리더 조회 실패");
+        console.error("상태 코드:", err.response?.status);
+        console.error("에러 메시지:", err.response?.data || "응답 없음");
       }
     };
-    
-    if (selectedTeamId) {
-      fetchisLeader();
-    }
-  }, [user, selectedTeamId]);*/
+    fetchLeaderId();
+  }, [teamId]);
+
+
+
+  /*
+  
+    useEffect(() => {
+      const fetchisLeader = async () => {
+        try {
+          const res = await api.get(`/teams/${selectedTeamId}/leader`);
+          console.log("res" , res.data);
+          const leaderUserId = res.data;
+          setIsLeader(user.userId === leaderUserId); 
+        } catch (err) {
+          console.error('팀장 여부 조회 실패', err);
+        }
+      };
+      
+      if (selectedTeamId) {
+        fetchisLeader();
+      }
+    }, [user, selectedTeamId]);*/
 
   // 대기자, 멤버 목록 조회
   const [pendingList, setPendingList] = useState<pendingMembers[]>([]);
-  const [memberList,  setMemberList]  = useState<members[]>([]);
+  const [memberList, setMemberList] = useState<members[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -144,13 +144,13 @@ console.log("token", token);
       setError('');
 
       try {
-        const [pendingRes, memberRes] = await Promise.all ([
+        const [pendingRes, memberRes] = await Promise.all([
           api.get(`/teams/${teamId}/pending-members`),
           api.get(`/teams/${teamId}/members`),
         ]);
 
         // 대기자 리스트
-        setPendingList (
+        setPendingList(
           pendingRes.data.map((m: any) => ({
             userTeamId: m.userTeamId,
             userId: m.userId,
@@ -188,7 +188,7 @@ console.log("token", token);
       // 수락된 사용자 pendingList에서 찾기
       const acceptedMember = pendingList.find((m) => m.userTeamId === userTeamId);
       if (!acceptedMember) return;
-      
+
       // pendingList에서 제거
       setPendingList((prev) => prev.filter((m) => m.userTeamId !== userTeamId));
 
@@ -214,7 +214,7 @@ console.log("token", token);
 
     try {
       await api.post(`/teams/${teamId}/reject/${userTeamId}`);
-      
+
       // pendingList에서 해당 멤버 제거
       setPendingList((prev) => prev.filter((m) => m.userTeamId !== userTeamId));
 
@@ -273,191 +273,196 @@ console.log("token", token);
     nextWeek.setDate(baseDate.getDate() + 7);
     setBaseDate(nextWeek);
   };
- 
+
 
   return (
     <div className='teampage-container'>
-    <Header />
-    <div className='team-container'>
-      <div className='team-box'>
-        <div className='team-header'>
-          <div className='team-header-select'>
-            <Image className='team-header-select-img' src="/images/users.png" alt="usersImg" width={24} height={24} />
-            <p className='team-header-select-text'>마이 팀 -</p>
-            <div onClick={toggleDropdown} className='dropdown'>
-              <span className='dropdown-teamname'>{selectedTeam}</span>
-              <Image className='down-img' src="/images/caret-down.png" alt="downImg" width={24} height={24} />
-              {isDropdownOpen && (
-                <div className='dropdown-content'>
-                  {teamList.map((team, idx) => (
-                    <li
-                      key={idx}
-                      onClick={() => {
-                        setSelectedTeam(team.teamName);
-                        setTeamId(team.id);
-                    }}>
-                      <Image
-                        className='star-img'
-                        src={
-                          selectedTeam === team.teamName
-                            ? "/images/yellowstar.png"
-                            : "/images/star.png"
-                        }
-                        alt="starImg"
-                        width={11}
-                        height={11}
-                      />
-                      {team.teamName}
-                    </li>
-                  ))}
-                </div>
-              )}
+      <Header />
+      <div className='team-container'>
+        <div className='team-box'>
+          <div className='team-header'>
+            <div className='team-header-select'>
+              <Image className='team-header-select-img' src="/images/users.png" alt="usersImg" width={24} height={24} />
+              <p className='team-header-select-text'>마이 팀 -</p>
+              <div onClick={toggleDropdown} className='dropdown'>
+                <span className='dropdown-teamname'>{selectedTeam}</span>
+                <Image className='down-img' src="/images/caret-down.png" alt="downImg" width={24} height={24} />
+                {isDropdownOpen && (
+                  <div className='dropdown-content'>
+                    {teamList.map((team, idx) => (
+                      <li
+                        key={idx}
+                        onClick={() => {
+                          setSelectedTeam(team.teamName);
+                          setTeamId(team.id);
+                        }}>
+                        <Image
+                          className='star-img'
+                          src={
+                            selectedTeam === team.teamName
+                              ? "/images/yellowstar.png"
+                              : "/images/star.png"
+                          }
+                          alt="starImg"
+                          width={11}
+                          height={11}
+                        />
+                        {team.teamName}
+                      </li>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+            <Image className='search-img' src="/images/search.png" alt="searchImg" width={24} height={24} onClick={() => setShowSearchModal(true)}></Image>
+          </div>
+
+          {/* 팀 검색 모달 */}
+          {showSearchModal && (
+            <TeamSearchModal
+              onClose={() => setShowSearchModal(false)}
+            />
+          )}
+
+          <div onClick={() => {
+            if (teamId) {
+              router.push(`/brief?teamId=${teamId}`);
+            }
+          }} className='team-list-box'>
+            <span className='team-list-text'> 팀 회의록 보기</span>
+            <Image className='team-list-vector-img' src="/images/Vector-next.png" alt="vectorImg" width={20} height={30}></Image>
+          </div>
+
+
+          <div className='team-calendar-box'>
+            <div className='team-calendar-title'>
+              <Image
+                className='vector-img'
+                src="/images/Vector-prev.png"
+                alt="vectorPrevImg"
+                width={9}
+                height={11}
+                onClick={handlePrevWeek}
+              />
+              <span className='title-month'>{monthArr[baseDate.getMonth()]}</span>
+              <span>-</span>
+              <span className='title-week'>{getWeekNumber(baseDate)}주</span>
+              <Image
+                className='vector-img'
+                src="/images/Vector-next.png"
+                alt="vectorNextImg"
+                width={9}
+                height={11}
+                onClick={handleNextWeek}
+              />
+            </div>
+            <div className='calendar-content'>
+              {
+                dayArr.map((day, idx) => {
+                  const dateStr = weekDates[idx];
+                  const schedule = scheduleData.find((s) => s.date === dateStr);
+                  let colorClass = '';
+
+                  if (idx === 0) colorClass = 'red';
+                  else if (idx === 6) colorClass = 'blue';
+                  return (
+                    <div key={idx} className='calendar-oneday'>
+                      <div className={`oneday-day ${colorClass}`}>{day}</div>
+                      <div className='oneday-date'>
+                        <div className={`date-btn ${schedule ? 'schedule' : ''}`}>
+                          <div className={`date-text ${colorClass}`}>{parseInt(dateStr.slice(8, 10), 10)}</div>
+                        </div>
+                        {schedule && (
+                          <div className='schedule-text'>회의일</div>
+                        )}
+                      </div>
+                    </div>
+                  )
+                })
+              }
             </div>
           </div>
-          <Image className='search-img' src="/images/search.png" alt="searchImg" width={24} height={24} onClick={() => setShowSearchModal(true)}></Image>
-        </div>
 
-        {/* 팀 검색 모달 */}
-        {showSearchModal && (
-          <TeamSearchModal
-            onClose={() => setShowSearchModal(false)}
-          />
-        )}
-
-        <div onClick={() => router.push('/brief')} className='team-list-box'>
-          <span className='team-list-text'> 팀 회의록 보기</span>
-          <Image className='team-list-vector-img' src="/images/Vector-next.png" alt="vectorImg" width={20} height={30}></Image>
-        </div>
-
-        <div className='team-calendar-box'>
-          <div className='team-calendar-title'>
-            <Image
-              className='vector-img'
-              src="/images/Vector-prev.png"
-              alt="vectorPrevImg"
-              width={9}
-              height={11}
-              onClick={handlePrevWeek}
-            />
-            <span className='title-month'>{monthArr[baseDate.getMonth()]}</span>
-            <span>-</span>
-            <span className='title-week'>{getWeekNumber(baseDate)}주</span>
-            <Image
-              className='vector-img'
-              src="/images/Vector-next.png"
-              alt="vectorNextImg"
-              width={9}
-              height={11}
-              onClick={handleNextWeek}
-            />
-          </div>
-          <div className='calendar-content'>
-            {
-              dayArr.map((day, idx) => {
-                const dateStr = weekDates[idx];
-                const schedule = scheduleData.find((s) => s.date === dateStr);
-                let colorClass ='';
-
-                if (idx === 0) colorClass = 'red';
-                else if (idx === 6) colorClass = 'blue';
+          <div className='team-member-box'>
+            <div className='team-member-title'>
+              <Image className='list-img' src="/images/list.png" alt="listImg" width={30} height={30} />
+              <span className='member-title-text'>팀원</span>
+            </div>
+            <div className='member-content'>
+              {loading && <p>불러오는 중...</p>}
+              {error && <p style={{ color: 'red' }}>{error}</p>}
+              {memberList.map((member, idx) => {
                 return (
-                  <div key={idx} className='calendar-oneday'>
-                    <div className={`oneday-day ${colorClass}`}>{day}</div>
-                    <div className='oneday-date'>
-                      <div className={`date-btn ${schedule ? 'schedule' : ''}`}>
-                        <div className={`date-text ${colorClass}`}>{parseInt(dateStr.slice(8, 10), 10)}</div>
+                  <div key={idx} className='member-block'>
+                    <div className='member-profile'>
+                      <div className='member-info'>
+                        <div className='profile-backimg'>
+                          <Image
+                            className='profile-img'
+                            src="/images/profile.png"
+                            alt="profileImg"
+                            width={24}
+                            height={24}
+                          />
+                        </div>
+                        <div className='profile-name'>{member.userName}</div>
+                        <div className='profile-role'>팀원</div>
                       </div>
-                      {schedule && (
-                        <div className='schedule-text'>회의일</div>
-                      )}
                     </div>
+                    {idx !== memberList.length + pendingList.length - 1 && <div className='team-member-line'></div>}
                   </div>
                 )
-              })
-            }
-          </div>
-        </div>
-
-        <div className='team-member-box'>
-          <div className='team-member-title'>
-            <Image className='list-img' src="/images/list.png" alt="listImg" width={30} height={30} />
-            <span className='member-title-text'>팀원</span>
-          </div>
-          <div className='member-content'>
-            {loading && <p>불러오는 중...</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {memberList.map((member, idx) => {
-              return (
-                <div key={idx} className='member-block'>
-                  <div className='member-profile'>
-                    <div className='member-info'>
-                      <div className='profile-backimg'>
-                        <Image
-                          className='profile-img'
-                          src="/images/profile.png"
-                          alt="profileImg"
-                          width={24}
-                          height={24} 
-                        />
+              })}
+              {pendingList.map((member, idx) => {
+                return (
+                  <div key={idx} className='member-block'>
+                    <div className='member-profile'>
+                      <div className='member-info'>
+                        <div className='profile-backimg'>
+                          <Image
+                            className='profile-img'
+                            src="/images/profile.png"
+                            alt="profileImg"
+                            width={24}
+                            height={24}
+                          />
+                        </div>
+                        <div className='profile-name'>{member.userName}</div>
+                        <div className='profile-role'>팀원</div>
                       </div>
-                      <div className='profile-name'>{member.userName}</div>
-                      <div className='profile-role'>팀원</div>
-                    </div>
-                  </div>
-                  {idx !== memberList.length + pendingList.length - 1 && <div className='team-member-line'></div>}
-                </div>
-              )
-            })}
-            {pendingList.map((member, idx) => {
-              return (
-                <div key={idx} className='member-block'>
-                  <div className='member-profile'>
-                    <div className='member-info'>
-                      <div className='profile-backimg'>
-                        <Image
-                          className='profile-img'
-                          src="/images/profile.png"
-                          alt="profileImg"
-                          width={24}
-                          height={24} 
-                        />
-                      </div>
-                      <div className='profile-name'>{member.userName}</div>
-                      <div className='profile-role'>팀원</div>
-                    </div>
-                    {isLeader && (
-                    <div className='member-state'>
-                      
-                        <Image
-                          className='member-state-accept-img'
-                          src="/images/AcceptButton.png"
-                          alt="AcceptButton"
-                          width={24}
-                          height={24}
-                          onClick={() => handleAcceptMember(member.userTeamId)}
-                        />
-                      
-                      <Image
-                        className='member-state-reject-img'
-                        src="/images/RejectButton.png"
-                        alt="RejectButton"
-                        width={24}
-                        height={24}
-                        onClick={() => handleDeleteMember(member.userTeamId)}
-                      />
-                    </div>
-                    )}
-                  </div>
-                  {idx !== pendingList.length - 1 && <div className='team-member-line'></div>}
-                </div>
-              )
-            })}
-          </div>
-        </div>
+                      {isLeader && (
+                        <div className='member-state'>
 
+                          <Image
+                            className='member-state-accept-img'
+                            src="/images/AcceptButton.png"
+                            alt="AcceptButton"
+                            width={24}
+                            height={24}
+                            onClick={() => handleAcceptMember(member.userTeamId)}
+                          />
+
+                          <Image
+                            className='member-state-reject-img'
+                            src="/images/RejectButton.png"
+                            alt="RejectButton"
+                            width={24}
+                            height={24}
+                            onClick={() => handleDeleteMember(member.userTeamId)}
+                          />
+                        </div>
+                      )}
+                    </div>
+                    {idx !== pendingList.length - 1 && <div className='team-member-line'></div>}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+        </div>
       </div>
-    </div>
-    <Footer />
+      <Footer />
     </div>
   );
 }

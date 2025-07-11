@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
       status: 200,
     });
   } catch (error) {
-    console.error('❌ API Route Error:', error);
+    console.error('API Route Error:', error);
     return new Response('Failed to call CLOVA', { status: 500 });
   }
 }

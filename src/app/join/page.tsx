@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation'
 import axios from 'axios';
 import Image from 'next/image'
+import api from '../api';
 
 export default function Signup() {
   const router = useRouter();
@@ -27,7 +28,7 @@ export default function Signup() {
     }
 
     try {
-      await axios.post('http://15.164.96.236:8080/users/join', {
+      await api.post('/users/join', {
         userId,
         userPw,
         userName,
