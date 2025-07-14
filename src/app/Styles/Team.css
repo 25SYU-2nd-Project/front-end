@@ -264,18 +264,18 @@
 } */
 
 .profile-name {
-  font-size:15px;
+  font-size:17px;
   font-family: 'Pretendard-Semibold';
 }
 
 .profile-role {
-  font-size: 13px;
+  font-size: 15px;
   font-family: 'Pretendard-Medium';
 }
 
 .profile-role-leader {
-  font-size: 13px;
-  font-family: 'Pretendard-Medium';
+  font-size: 15px;
+  font-family: 'Pretendard-Semibold';
   color: #FFB006;
 }
 

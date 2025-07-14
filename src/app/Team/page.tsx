@@ -18,6 +18,8 @@ interface members {
   id: number;
   userId: string;
   userName: string;
+  // userLoginId: string;
+
 }
 
 interface pendingMembers {
@@ -87,8 +89,8 @@ export default function Team() {
 
   // 팀장 여부 확인
   const [leaderId, setLeaderId] = useState<string>('');
-  const isLeader = true; // 추후 수정
-  //const isLeader = userId === leaderId;
+  // const isLeader = true; 
+  const isLeader = userId === leaderId;
 
   useEffect(() => {
     const fetchLeaderId = async () => {
@@ -96,13 +98,13 @@ export default function Team() {
 
       const token = localStorage.getItem('token') || sessionStorage.getItem('token');
       if (!token) return;
-      console.log("token", token);
+
       try {
         const res = await api.get(`/teams/${teamId}/leader`);
-
         console.log("리더 ID:", res.data);
+        setLeaderId(res.data);
       } catch (err: any) {
-        console.error("❌ 리더 조회 실패");
+        console.error(" 리더 조회 실패");
         console.error("상태 코드:", err.response?.status);
         console.error("에러 메시지:", err.response?.data || "응답 없음");
       }
@@ -110,73 +112,57 @@ export default function Team() {
     fetchLeaderId();
   }, [teamId]);
 
-
-
-  /*
-  
-    useEffect(() => {
-      const fetchisLeader = async () => {
-        try {
-          const res = await api.get(`/teams/${selectedTeamId}/leader`);
-          console.log("res" , res.data);
-          const leaderUserId = res.data;
-          setIsLeader(user.userId === leaderUserId); 
-        } catch (err) {
-          console.error('팀장 여부 조회 실패', err);
-        }
-      };
-      
-      if (selectedTeamId) {
-        fetchisLeader();
-      }
-    }, [user, selectedTeamId]);*/
-
   // 대기자, 멤버 목록 조회
   const [pendingList, setPendingList] = useState<pendingMembers[]>([]);
   const [memberList, setMemberList] = useState<members[]>([]);
   const [loading, setLoading] = useState(false);
 
+  // 1. 팀원 목록: 누구나 실행
   useEffect(() => {
-    if (!teamId || !isLeader) return;
+    if (!teamId) return;
 
-    const fetchMembers = async () => {
-      setLoading(true);
-      setError('');
-
+    const fetchMemberList = async () => {
       try {
-        const [pendingRes, memberRes] = await Promise.all([
-          api.get(`/teams/${teamId}/pending-members`),
-          api.get(`/teams/${teamId}/members`),
-        ]);
+        const res = await api.get(`/teams/${teamId}/members`);
+        setMemberList(
+          res.data.map((m: any) => ({
+            id: m.id,
+            userId: m.userId,
+            userName: m.userName,
+          }))
+        );
+      } catch (err: any) {
+        setError(err.response?.data?.message || '팀원 목록 조회 실패');
+      }
+    };
 
-        // 대기자 리스트
+    fetchMemberList();
+  }, [teamId]);
+
+  // 2. 대기자 목록: 팀장일 때만 실행
+  useEffect(() => {
+    if (!teamId || userId !== leaderId) return;
+
+    const fetchPendingList = async () => {
+      try {
+        const res = await api.get(`/teams/${teamId}/pending-members`);
         setPendingList(
-          pendingRes.data.map((m: any) => ({
+          res.data.map((m: any) => ({
             userTeamId: m.userTeamId,
             userId: m.userId,
             userName: m.userName,
             userLoginId: m.userLoginId,
           }))
         );
-
-        // 멤버 리스트
-        setMemberList(
-          memberRes.data.map((m: any) => ({
-            id: m.id,
-            userId: m.userId,
-            userName: m.userName,
-          }))
-        );
-
-      } catch (error: any) {
-        setError(error.response?.data?.message || "목록 조회 실패");
-      } finally {
-        setLoading(false);
+      } catch (err: any) {
+        console.error('대기자 목록 조회 실패:', err); // 팀원일때는 403으로 막아줌 
       }
     };
 
-    fetchMembers();
-  }, [teamId]);
+    fetchPendingList();
+  }, [teamId, userId, leaderId]);
+
+
 
   // 팀원 수락하기
   const handleAcceptMember = async (userTeamId: number) => {
@@ -199,6 +185,7 @@ export default function Team() {
           id: acceptedMember.userId,
           userId: acceptedMember.userLoginId,
           userName: acceptedMember.userName,
+          userLoginId: acceptedMember.userLoginId,
         },
       ]);
 
@@ -393,7 +380,7 @@ export default function Team() {
               {error && <p style={{ color: 'red' }}>{error}</p>}
               {memberList.map((member, idx) => {
                 return (
-                  <div key={idx} className='member-block'>
+                  <div key={`member-${idx}`} className='member-block'>
                     <div className='member-profile'>
                       <div className='member-info'>
                         <div className='profile-backimg'>
@@ -406,13 +393,18 @@ export default function Team() {
                           />
                         </div>
                         <div className='profile-name'>{member.userName}</div>
-                        <div className='profile-role'>팀원</div>
+                        {
+                          member.userId === leaderId
+                            ? <div className='profile-role-leader'>팀장</div>
+                            : <div className='profile-role'>팀원</div>
+                        }
                       </div>
                     </div>
                     {idx !== memberList.length + pendingList.length - 1 && <div className='team-member-line'></div>}
                   </div>
                 )
               })}
+
               {pendingList.map((member, idx) => {
                 return (
                   <div key={idx} className='member-block'>

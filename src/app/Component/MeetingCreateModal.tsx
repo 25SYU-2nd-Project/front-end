@@ -27,12 +27,18 @@ export default function MeetingCreateModal({ teamId, onClose, onSuccess }: Meeti
   const token = localStorage.getItem('token') || sessionStorage.getItem('token')
 
   useEffect(() => {
-    if (!token) return
+    if (!token) return;
     api.get(`/teams/${teamId}/members`, {
       headers: { Authorization: `Bearer ${token}` },
-    }).then(res => setUserList(res.data))
-      .catch(() => setUserList([]))
-  }, [teamId])
+    }).then(res => {
+      setUserList(res.data);
+      setAttendees(res.data.map((user: User) => user.id));  //  전체 팀원 자동 참석 처리
+    }).catch(() => {
+      setUserList([]);
+      setAttendees([]); // 실패 시 초기화
+    });
+  }, [teamId]);
+
 
   const handleSubmit = async () => {
     if (!sessionNumber || !date || !time ||  !content.trim()) {
@@ -71,7 +77,7 @@ export default function MeetingCreateModal({ teamId, onClose, onSuccess }: Meeti
       <div className="Meeting-Modal-Container">
         <div className="Meeting-Modal-Header">
           <div className="Meeting-Modal-Header-Left">
-            <Image src="/images/BriefDetailBlack.png" alt="logo" width={24} height={24} />
+            <Image src="/images/BreifDetailBlack.png" alt="logo" width={24} height={24} />
             <p className="Meeting-Modal-Header-Text">회의록 생성</p>
           </div>
           <Image
