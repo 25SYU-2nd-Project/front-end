@@ -1,19 +1,22 @@
 .BriefDetail-Container {
-    width: 100%;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     margin: 0 auto;
 }
 
 .BriefDetail-Box {
     width: 355px;
-    height: 657px;
+    min-height: 657px;
+    max-height: calc(100vh -  29px - 72px - 40px); 
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    margin-top: 33px;
+    margin-top: 82px;
     margin-bottom: 11px;
 }
 

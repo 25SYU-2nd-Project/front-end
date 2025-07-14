@@ -3,16 +3,20 @@
 }
 
 .Main-Container {
-    width: 100%;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     margin: 0 auto;
+     overflow-y: auto;  
+    
 }
 
 .MyTeam-Box{
-    position: relative;
+    /* position: relative; */
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
@@ -21,8 +25,8 @@
     /* height: 199px; */
     background-color: #FFFFFF;
     border-radius: 20px;
-    margin-top: 32px;
-    min-height: 199px;           /* 최소 높이만 지정해서 유연하게 */
+    margin-top: 81px;
+    min-height: 199px;           
     padding-bottom: 10px;
 }
 
@@ -141,6 +145,7 @@
     align-items: center;
     width: 355px;
     height: 445px;
+    max-height: calc(100vh -  29px - 72px - 40px); 
     border-radius: 20px;
     background-color: #FFFFFF;
     margin-top: 25px;

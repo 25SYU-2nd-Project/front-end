@@ -36,10 +36,10 @@ export default function MainPage() {
 
   const handleCreateTeam = () => setShowCreateModal(true);
 
-    // 팀 검색 모달
-  const [showSearchModal, setShowSearchModal] =useState(false);
+  // 팀 검색 모달
+  const [showSearchModal, setShowSearchModal] = useState(false);
   const handleSearchModal = () => setShowSearchModal(true);
-  
+
 
   const handleMouseDown = (e: React.MouseEvent) => {
     isDragging.current = true;
@@ -91,69 +91,69 @@ export default function MainPage() {
     <div className="Main-Container">
       <Header />
 
-{/* 팀 카드 박스 */}
-<div className="MyTeam-Box">
-  {/* 헤더 */}
-  <div className="MyTeam-Header">
-    <div className="MyTeam-Header-Left">
-      <Image
-        className="MyTeam-Logo"
-        src="/images/userImg.png"
-        alt="MyteamLogo"
-        width={24}
-        height={24}
-      />
-      <p className="MyTeam-Header-Text">마이 팀</p>
-    </div>
+      {/* 팀 카드 박스 */}
+      <div className="MyTeam-Box">
+        {/* 헤더 */}
+        <div className="MyTeam-Header">
+          <div className="MyTeam-Header-Left">
+            <Image
+              className="MyTeam-Logo"
+              src="/images/userImg.png"
+              alt="MyteamLogo"
+              width={24}
+              height={24}
+            />
+            <p className="MyTeam-Header-Text">마이 팀</p>
+          </div>
 
-    <div className="MyTeam-Header-Right">
-      <Image
-        className="MyTeam-Search"
-        src="/images/search.png"
-        alt="Search"
-        width={24}
-        height={24}
-        onClick={() => setShowSearchModal(true)}
-      />
-    </div>
-  </div>
+          <div className="MyTeam-Header-Right">
+            <Image
+              className="MyTeam-Search"
+              src="/images/search.png"
+              alt="Search"
+              width={24}
+              height={24}
+              onClick={() => setShowSearchModal(true)}
+            />
+          </div>
+        </div>
 
-  {/* 팀 카드 리스트 */}
-  <div className="MyTeam-Content">
-    <div className="MyTeam-Slider" ref={sliderRef} onMouseDown={handleMouseDown}>
-      {/* 새 팀 생성 카드 */}
-      <div className="Team-Card-New-Team-Card" onClick={() => setShowCreateModal(true)}>
-        <Image
-          className="TeamAddButton"
-          src="/images/TeamAddButton.png"
-          alt="teamAdd"
-          width={50}
-          height={50}
-        />
+        {/* 팀 카드 리스트 */}
+        <div className="MyTeam-Content">
+          <div className="MyTeam-Slider" ref={sliderRef} onMouseDown={handleMouseDown}>
+            {/* 새 팀 생성 카드 */}
+            <div className="Team-Card-New-Team-Card" onClick={() => setShowCreateModal(true)}>
+              <Image
+                className="TeamAddButton"
+                src="/images/TeamAddButton.png"
+                alt="teamAdd"
+                width={50}
+                height={50}
+              />
+            </div>
+
+            {/* 로딩 상태 */}
+            {loading && <p style={{ padding: '20px' }}>로딩 중…</p>}
+
+            {/* 팀 목록 */}
+            {teamList.map((team) => (
+              <div key={team.id} className="Team-Card">
+                <div className="Team-Name">{team.teamName}</div>
+                <div className="Team-Schedule">다음 회의 일정</div>
+                <div className="Team-Date">미정</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* 로딩 상태 */}
-      {loading && <p style={{ padding: '20px' }}>로딩 중…</p>}
-
-      {/* 팀 목록 */}
-      {teamList.map((team) => (
-        <div key={team.id} className="Team-Card">
-          <div className="Team-Name">{team.teamName}</div>
-          <div className="Team-Schedule">다음 회의 일정</div>
-          <div className="Team-Date">미정</div>
-        </div>
-      ))}
-    </div>
-  </div>
-</div>
-
-{/* 생성 모달 겹쳐서 띄우기 */}
-{showCreateModal && (
-  <TeamCreateModal
-    onClose={() => setShowCreateModal(false)}
-    onSuccess={fetchTeams}
-  />
-)}
+      {/* 생성 모달 겹쳐서 띄우기 */}
+      {showCreateModal && (
+        <TeamCreateModal
+          onClose={() => setShowCreateModal(false)}
+          onSuccess={fetchTeams}
+        />
+      )}
 
 
       {/* 팀 검색 모달 */}
