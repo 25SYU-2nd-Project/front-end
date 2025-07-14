@@ -61,7 +61,7 @@ export default function Team() {
         console.log('유저정보 응답:', userId);
         setUserId(userId);
       } catch (err: any) {
-        setError(err.response?.data?.message || '유저 정보 조회 실패');
+        console.error(err.response?.data?.message || '유저 정보 조회 실패');
       }
     }
 
@@ -117,16 +117,12 @@ export default function Team() {
   // 대기자, 멤버 목록 조회
   const [pendingList, setPendingList] = useState<pendingMembers[]>([]);
   const [memberList, setMemberList] = useState<members[]>([]);
-  const [loading, setLoading] = useState(false);
 
   // 멤버 목록 조회
    useEffect(() => {
     if (!teamId) return;
 
     const fetchMembers = async () => {
-      setLoading(true);
-      setError('');
-
       try {
         const res = await api.get(`/teams/${teamId}/members`);
         // 멤버 리스트
@@ -139,10 +135,8 @@ export default function Team() {
         );
 
       } catch (error: any) {
-        setError(error.response?.data?.message || "멤버 목록 조회 실패");
-      } finally {
-        setLoading(false);
-      }
+        console.error(error.response?.data?.message || "멤버 목록 조회 실패");
+      } 
     };
 
     fetchMembers();
@@ -154,12 +148,8 @@ export default function Team() {
     if (!isLeader) return;
 
     const fetchPendingMembers = async () => {
-      setLoading(true);
-      setError('');
-
       try {
         const res = await api.get(`/teams/${teamId}/pending-members`);
-        console.log("대기자 응답: ", res.data);
         // 대기자 리스트
         setPendingList (
           res.data.map((m: any) => ({
@@ -172,9 +162,7 @@ export default function Team() {
 
       } catch (error: any) {
         setPendingList([]);
-        setError(error.response?.data?.message || "대기자 목록 조회 실패");
-      } finally {
-        setLoading(false);
+        console.error(error.response?.data?.message || "대기자 목록 조회 실패");
       }
     };
 
@@ -413,8 +401,6 @@ console.log("isLeader", isLeader);
             <span className='member-title-text'>팀원</span>
           </div>
           <div className='member-content'>
-            {loading && <p>불러오는 중...</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
             {memberList.map((member, idx) => {
               return (
                 <div key={`member-${idx}`} className='member-block'>
