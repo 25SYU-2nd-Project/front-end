@@ -43,11 +43,11 @@ export default function Team() {
   const [error, setError] = useState('');
 
   // 팀 검색 모달
-  const [showSearchModal, setShowSearchModal] =useState(false);
+  const [showSearchModal, setShowSearchModal] = useState(false);
   const handleSearchModal = () => setShowSearchModal(true);
 
   // 로그인한 사용자 정보 조회
-   useEffect(() => {
+  useEffect(() => {
     const fetchUserInfo = async () => {
       const token = localStorage.getItem('token') || sessionStorage.getItem('token');
       if (!token) {
@@ -64,7 +64,7 @@ export default function Team() {
         setError(err.response?.data?.message || '유저 정보 조회 실패');
       }
     }
-    
+
     fetchUserInfo();
   }, []);
 
@@ -116,7 +116,7 @@ export default function Team() {
 
   // 대기자, 멤버 목록 조회
   const [pendingList, setPendingList] = useState<pendingMembers[]>([]);
-  const [memberList,  setMemberList]  = useState<members[]>([]);
+  const [memberList, setMemberList] = useState<members[]>([]);
   const [loading, setLoading] = useState(false);
 
   // 멤버 목록 조회
@@ -129,7 +129,6 @@ export default function Team() {
 
       try {
         const res = await api.get(`/teams/${teamId}/members`);
-      
         // 멤버 리스트
         setMemberList(
           res.data.map((m: any) => ({
@@ -202,7 +201,7 @@ console.log("isLeader", isLeader);
       // 수락된 사용자 pendingList에서 찾기
       const acceptedMember = pendingList.find((m) => m.userTeamId === userTeamId);
       if (!acceptedMember) return;
-      
+
       // pendingList에서 제거
       setPendingList((prev) => prev.filter((m) => m.userTeamId !== userTeamId));
 
@@ -228,7 +227,7 @@ console.log("isLeader", isLeader);
 
     try {
       await api.post(`/teams/${teamId}/reject/${userTeamId}`);
-      
+
       // pendingList에서 해당 멤버 제거
       setPendingList((prev) => prev.filter((m) => m.userTeamId !== userTeamId));
 
@@ -301,49 +300,48 @@ console.log("isLeader", isLeader);
     
     fetchMeetings();
   }, [teamId]);
- 
 
   return (
     <div className='teampage-container'>
-    <Header />
-    <div className='team-container'>
-      <div className='team-box'>
-        <div className='team-header'>
-          <div className='team-header-select'>
-            <Image className='team-header-select-img' src="/images/users.png" alt="usersImg" width={24} height={24} />
-            <p className='team-header-select-text'>마이 팀 -</p>
-            <div onClick={toggleDropdown} className='dropdown'>
-              <span className='dropdown-teamname'>{selectedTeam}</span>
-              <Image className='down-img' src="/images/caret-down.png" alt="downImg" width={24} height={24} />
-              {isDropdownOpen && (
-                <div className='dropdown-content'>
-                  {teamList.map((team, idx) => (
-                    <li
-                      key={idx}
-                      onClick={() => {
-                        setSelectedTeam(team.teamName);
-                        setTeamId(team.id);
-                    }}>
-                      <Image
-                        className='star-img'
-                        src={
-                          selectedTeam === team.teamName
-                            ? "/images/yellowstar.png"
-                            : "/images/star.png"
-                        }
-                        alt="starImg"
-                        width={11}
-                        height={11}
-                      />
-                      {team.teamName}
-                    </li>
-                  ))}
-                </div>
-              )}
+      <Header />
+      <div className='team-container'>
+        <div className='team-box'>
+          <div className='team-header'>
+            <div className='team-header-select'>
+              <Image className='team-header-select-img' src="/images/users.png" alt="usersImg" width={24} height={24} />
+              <p className='team-header-select-text'>마이 팀 -</p>
+              <div onClick={toggleDropdown} className='dropdown'>
+                <span className='dropdown-teamname'>{selectedTeam}</span>
+                <Image className='down-img' src="/images/caret-down.png" alt="downImg" width={24} height={24} />
+                {isDropdownOpen && (
+                  <div className='dropdown-content'>
+                    {teamList.map((team, idx) => (
+                      <li
+                        key={idx}
+                        onClick={() => {
+                          setSelectedTeam(team.teamName);
+                          setTeamId(team.id);
+                        }}>
+                        <Image
+                          className='star-img'
+                          src={
+                            selectedTeam === team.teamName
+                              ? "/images/yellowstar.png"
+                              : "/images/star.png"
+                          }
+                          alt="starImg"
+                          width={11}
+                          height={11}
+                        />
+                        {team.teamName}
+                      </li>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
+            <Image className='search-img' src="/images/search.png" alt="searchImg" width={24} height={24} onClick={() => setShowSearchModal(true)}></Image>
           </div>
-          <Image className='search-img' src="/images/search.png" alt="searchImg" width={24} height={24} onClick={() => setShowSearchModal(true)}></Image>
-        </div>
 
         {/* 팀 검색 모달 */}
         {showSearchModal && (
@@ -398,7 +396,9 @@ console.log("isLeader", isLeader);
                       {meeting && (
                         <div className='meeting-text'>회의일</div>
                       )}
+
                     </div>
+                    {idx !== memberList.length + pendingList.length - 1 && <div className='team-member-line'></div>}
                   </div>
                 )
               })
@@ -483,9 +483,9 @@ console.log("isLeader", isLeader);
           </div>
         </div>
 
+        </div>
       </div>
-    </div>
-    <Footer />
+      <Footer />
     </div>
   );
 }

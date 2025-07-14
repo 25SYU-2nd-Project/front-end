@@ -22,33 +22,39 @@
     flex-direction: row;
     align-items: center;
     background-color: #283652;
-    width: 333px;
+    width: 355px;
     height: 54px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     font-family: 'Pretendard-Bold';
     color: #FFFFFF;
     font-size: 20px;
-    padding-left: 22px;
+    /* padding-left: 22px; */
+    /* margin-left: 22px; */
+}
+
+.Brief-Header-Img {
+  margin-left: 22px;
 }
 
 .Brief-Category {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 309px;
+  width: 355px;
   height: 55px;
   background-color: #38414D;
   font-family: 'Pretendard-Bold';
   color: #FFFFFF;
   font-size: 14px;
-  padding: 0 23px;
+  /* padding: 0 23px; */
   column-gap: 12px;
 }
 
 /* 카테고리와 실제 데이터 항목들에 동일한 width를 지정 */
 .Brief-Category-Date {
   width: 90px;
+  margin-left: 23px;
 }
 
 .Brief-Category-Times {

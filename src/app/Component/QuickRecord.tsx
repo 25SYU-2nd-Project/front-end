@@ -77,7 +77,7 @@ export default function QuickRecord({ onStop, onCopyComplete }: QuickRecordProps
           const result = await response.json();
           setTranscript(result.text || '[결과 없음]');
         } catch (error) {
-          console.error('❌ 변환 실패:', error);
+          console.error(' 변환 실패:', error);
           setTranscript('오류가 발생했습니다.');
         }
       };
