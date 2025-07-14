@@ -27,6 +27,16 @@ interface pendingMembers {
   userName: string;
 }
 
+interface Meeting {
+  id: number
+  sessionNumber: number
+  meetingDate: string
+  meetingTime: string
+  content: string
+  attendees: string[]
+}
+
+
 export default function Team() {
   const router = useRouter();
   const [userId, setUserId] = useState<string>('');
@@ -232,10 +242,6 @@ console.log("isLeader", isLeader);
   // 캘린더
   const monthArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const dayArr = ['일', '월', '화', '수', '목', '금', '토'];
-  const scheduleData = [
-    { date: '2025-06-26', title: '회의' },
-    { date: '2025-07-02', title: '회의' },
-  ]; // 추후 수정
 
   const getWeekDates = (baseDate: Date): string[] => {
     const day = baseDate.getDay();
@@ -277,6 +283,24 @@ console.log("isLeader", isLeader);
     nextWeek.setDate(baseDate.getDate() + 7);
     setBaseDate(nextWeek);
   };
+
+  const [meetingData, setMeetingData] = useState<Meeting[]>([])
+
+  // 회의 일정 조회
+   useEffect(() => {
+    if (!teamId) return;
+
+    const fetchMeetings = async () => {
+      try {
+        const res = await api.get(`/meetings/list/${teamId}`);
+        setMeetingData(res.data);
+      } catch (err) {
+        console.error('회의 목록 불러오기 실패', err);
+      }
+    };
+    
+    fetchMeetings();
+  }, [teamId]);
  
 
   return (
@@ -359,7 +383,7 @@ console.log("isLeader", isLeader);
             {
               dayArr.map((day, idx) => {
                 const dateStr = weekDates[idx];
-                const schedule = scheduleData.find((s) => s.date === dateStr);
+                const meeting = meetingData.find((s) => s.meetingDate === dateStr);
                 let colorClass ='';
 
                 if (idx === 0) colorClass = 'red';
@@ -368,11 +392,11 @@ console.log("isLeader", isLeader);
                   <div key={idx} className='calendar-oneday'>
                     <div className={`oneday-day ${colorClass}`}>{day}</div>
                     <div className='oneday-date'>
-                      <div className={`date-btn ${schedule ? 'schedule' : ''}`}>
+                      <div className={`date-btn ${meeting ? 'meeting' : ''}`}>
                         <div className={`date-text ${colorClass}`}>{parseInt(dateStr.slice(8, 10), 10)}</div>
                       </div>
-                      {schedule && (
-                        <div className='schedule-text'>회의일</div>
+                      {meeting && (
+                        <div className='meeting-text'>회의일</div>
                       )}
                     </div>
                   </div>

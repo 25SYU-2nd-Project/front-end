@@ -127,6 +127,12 @@
   font-family: 'Pretendard-Semibold';
 }
 
+.team-calendar-title-btn {
+  display: flex;
+  justify-content: center;
+}
+
+
 /* .title-month {
 
 }
@@ -180,7 +186,7 @@
   color: #000;
 }
 
-.schedule {
+.meeting {
   border: 2px solid #FFB006;
 }
 
@@ -188,7 +194,7 @@
   font-family: 'Pretendard-Regular';
 } 
 
-.schedule-text {
+.meeting-text {
   color: #FFB006;
   font-size: 7px;
   font-family: 'Pretendard-Medium';
