@@ -171,6 +171,7 @@ export default function Team() {
         );
 
       } catch (error: any) {
+        setPendingList([]);
         setError(error.response?.data?.message || "대기자 목록 조회 실패");
       } finally {
         setLoading(false);
@@ -217,7 +218,7 @@ console.log("isLeader", isLeader);
 
       alert('수락되었습니다.');
     } catch (err: any) {
-      alert(err.res?.data?.message || '수락 실패');
+      console.error(err.res?.data?.message || '수락 실패');
     }
   };
 
@@ -233,7 +234,7 @@ console.log("isLeader", isLeader);
 
       alert('거절되었습니다.');
     } catch (err: any) {
-      alert(err.response?.data?.message || '거절 실패');
+      console.error(err.response?.data?.message || '거절 실패');
     }
   };
 
