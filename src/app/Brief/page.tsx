@@ -45,7 +45,7 @@ export default function BriefPage() {
     }
   }
 
-  // 🔹 팀 ID 설정되면 회의 목록 가져오기
+  // 팀 ID 설정되면 회의 목록 가져오기
   useEffect(() => {
     if (teamId) fetchMeetings()
   }, [teamId])

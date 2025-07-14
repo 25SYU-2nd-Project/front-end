@@ -92,7 +92,7 @@
   justify-content: space-between;
   width: 82vw;
   height: 12%;
-  padding: 0 20px;
+  padding: 0 5vw;
   border-radius: 20px;
   background-color: #35486D;
   box-shadow: 0 4px 4px rgba(0,0,0,0.2);
@@ -115,7 +115,7 @@
   border-radius: 20px;
   background-color: #35486D;
   font-size: 12px;
-  padding: 15px 20px;
+  padding: 2vh 5vw;
   box-shadow: 0 4px 4px rgba(0,0,0,0.2);
 }
 
@@ -126,12 +126,6 @@
   color: #fff;
   font-family: 'Pretendard-Semibold';
 }
-
-.team-calendar-title-btn {
-  display: flex;
-  justify-content: center;
-}
-
 
 /* .title-month {
 
@@ -179,8 +173,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 7vw;
-  height: 7vw;
+  width: 3.3vh;
+  height: 3.3vh;
   border-radius: 50%;
   background-color: #fff;
   color: #000;
@@ -213,7 +207,7 @@
   display: flex;
   align-items: center;
   height: 16%;
-  padding: 0 20px;
+  padding: 0 5vw;
   border-radius: 20px 20px 0 0;
   background-color: #35486D;
   gap: 5px;
@@ -246,7 +240,7 @@
   display: flex;
   justify-content: space-between;
   height: 99%;
-  padding: 0 20px;
+  padding: 0 5vw;
 }
 
 .member-info {
@@ -270,18 +264,18 @@
 } */
 
 .profile-name {
-  font-size:15px;
+  font-size:17px;
   font-family: 'Pretendard-Semibold';
 }
 
 .profile-role {
-  font-size: 13px;
+  font-size: 15px;
   font-family: 'Pretendard-Medium';
 }
 
 .profile-role-leader {
-  font-size: 13px;
-  font-family: 'Pretendard-Medium';
+  font-size: 15px;
+  font-family: 'Pretendard-Semibold';
   color: #FFB006;
 }
 
