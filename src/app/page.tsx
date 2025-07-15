@@ -53,9 +53,9 @@ export default function Login() {
       });
       
       console.log('내 정보 응답:', res.data);
-      window.location.replace('/main');
+      window.location.replace('/main'); // 로그인 성공 시 메인 화면으로 이동
     } catch (err: any) { 
-      console.error('로그인 에러: ', err);
+      console.error('로그인 실패: ', err);
       setError(err.response?.data?.message || '로그인에 실패하였습니다.');
     }
   }

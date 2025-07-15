@@ -132,8 +132,8 @@ export default function Team() {
           }))
         );
 
-      } catch (error: any) {
-        console.error(error.response?.data?.message || "멤버 목록 조회 실패");
+      } catch (err: any) {
+        console.error(err.response?.data?.message || "멤버 목록 조회 실패");
       } 
     };
 
@@ -158,9 +158,9 @@ export default function Team() {
           }))
         );
 
-      } catch (error: any) {
+      } catch (err: any) {
         setPendingList([]);
-        console.error(error.response?.data?.message || "대기자 목록 조회 실패");
+        console.error(err.response?.data?.message || "대기자 목록 조회 실패");
       }
     };
 
@@ -241,7 +241,6 @@ export default function Team() {
     return Math.ceil((currentDate + firstDayWeekDay) / 7);
   };
 
-  // 캘린더
   const [baseDate, setBaseDate] = useState(new Date());
   const weekDates = getWeekDates(baseDate);
 
@@ -259,6 +258,7 @@ export default function Team() {
     setBaseDate(nextWeek);
   };
 
+  // 회의 일정
   const [meetingData, setMeetingData] = useState<Meeting[]>([])
 
   // 회의 일정 조회
