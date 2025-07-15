@@ -71,7 +71,7 @@
     /* 부모 정렬 요소 무시하고 자신을 정렬함 */
     margin-left: 13px;
     align-items: baseline;
-    gap: 23px;
+    gap: 17px;
 
 }
 
@@ -82,7 +82,7 @@
 
 .Brief-Times-Label-Ans {
     font-family: 'Pretendard-Regular';
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .Brief-Team-Label {
@@ -91,8 +91,11 @@
 }
 
 .Brief-Team-Label-Ans {
+    display: flex;
+    flex-wrap: wrap;
     font-family: 'Pretendard-Regular';
-    font-size: 10px;
+    font-size: 12px;
+    gap: 6px;
 }
 
 .BriefDetail-Content-Entry {
@@ -144,39 +147,46 @@
 }
 
 .Entry-Item {
-    display: flex;
-    flex-direction: row;
-    width: 270px;
-    height: 30px;
-    border-bottom: 1px solid #000;
-    gap: 166px;
-    align-items: center;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 270px;
+  height: 30px;
+  border-bottom: 1px solid #000;
 }
 
-.Entry-Name {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-
+.Entry-NameBox {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  flex-grow: 1;
+  gap: 5px;
 }
 
 .Entry-Name-Label {
-    font-family: 'Pretendard-Bold';
-    font-size: 15px;
+  font-family: 'Pretendard-Bold';
+  font-size: 15px;
+  width: 40px;
 }
 
 .Role {
-    font-family: 'Pretendard-Medium';
-    font-size: 13px;
-    color: #000000;
-    margin-left: 3px;
+  font-family: 'Pretendard-Medium';
+  font-size: 13px;
+  width: 23px; 
+  display: inline-block;
 }
 
 .Role.Leader {
-    font-family: 'Pretendard-Medium';
-    font-size: 13px;
-    color: #FFB006;
+  color: #FFB006;
 }
+
+.Entry-AddBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
 
 .BriefDetail-Quick-Record-Box {
     display: flex;
