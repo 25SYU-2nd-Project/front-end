@@ -40,7 +40,6 @@ interface Meeting {
 export default function Team() {
   const router = useRouter();
   const [userId, setUserId] = useState<string>('');
-  const [error, setError] = useState('');
 
   // 팀 검색 모달
   const [showSearchModal, setShowSearchModal] = useState(false);
@@ -51,7 +50,7 @@ export default function Team() {
     const fetchUserInfo = async () => {
       const token = localStorage.getItem('token') || sessionStorage.getItem('token');
       if (!token) {
-        setError('로그인이 필요합니다.');
+        console.error('로그인이 필요합니다.');
         return;
       }
 
@@ -88,7 +87,6 @@ export default function Team() {
         setTeamId(data[0]?.id || null);
       } catch (err) {
         console.error('팀 불러오기 실패:', err);
-        setError('팀 정보를 불러올 수 없습니다.');
       }
     }
 
@@ -168,17 +166,6 @@ export default function Team() {
 
     fetchPendingMembers();
   }, [teamId, userId, leaderId, isLeader]);
-
-
-  console.log("teamId", teamId);
-console.log("userId", userId);
-console.log("leaderId", leaderId);
-console.log("isLeader", isLeader);
-
-
-  console.log("pending",pendingList);
-  console.log("member",memberList);
-
 
   // 가입 신청 팀원 수락하기
   const handleAcceptMember = async (userTeamId: number) => {
