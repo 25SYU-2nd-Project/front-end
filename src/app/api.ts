@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://54.180.26.148:8080',
+  baseURL: 'https://thinktrip.it.com',
   headers: {
     'Content-Type': 'application/json',
   },
