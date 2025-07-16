@@ -7,14 +7,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
   width: 100vw;
   height: 100vh;
+  justify-content: flex-start;
+  margin: 0 auto;
+  overflow-y: auto;  
 }
 
 .team-container {
   display: flex;
   justify-content: center;
+  margin-top: 81px;
 }
 
 .team-box {
@@ -22,8 +25,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  width: 90vw;
-  height: 75vh;
+  /*width: 90vw;*/
+  /*width: 86vw;*/
+  width: 355px;
+  height: 76vh;
   border-radius: 20px;
   background-color: #fff;
 }
@@ -34,7 +39,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 82vw;
+  /*width: 82vw;*/
+  width: 314px;
   padding: 2vh 0 1vh 0;
 }
 
@@ -91,9 +97,9 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 82vw;
+  width: 314px;
   height: 12%;
-  padding: 0 20px;
+  padding: 0 5vw;
   border-radius: 20px;
   background-color: #35486D;
   box-shadow: 0 4px 4px rgba(0,0,0,0.2);
@@ -110,13 +116,13 @@
 .team-calendar-box {
   display: flex;
   flex-direction: column;
-  width: 82vw;
+  width: 314px;
   height: 17%;
   gap: 1vh;
   border-radius: 20px;
   background-color: #35486D;
   font-size: 12px;
-  padding: 15px 20px;
+  padding: 2vh 5vw;
   box-shadow: 0 4px 4px rgba(0,0,0,0.2);
 }
 
@@ -174,14 +180,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 7vw;
-  height: 7vw;
+  width: 3.3vh;
+  height: 3.3vh;
   border-radius: 50%;
   background-color: #fff;
   color: #000;
 }
 
-.schedule {
+.meeting {
   border: 2px solid #FFB006;
 }
 
@@ -189,7 +195,7 @@
   font-family: 'Pretendard-Regular';
 } 
 
-.schedule-text {
+.meeting-text {
   color: #FFB006;
   font-size: 7px;
   font-family: 'Pretendard-Medium';
@@ -198,7 +204,7 @@
 
 /* 팀원 */
 .team-member-box {
-  width: 82vw;
+  width: 314px;
   height: 55%;
   border-radius: 20px;
   overflow: hidden;
@@ -208,7 +214,7 @@
   display: flex;
   align-items: center;
   height: 16%;
-  padding: 0 20px;
+  padding: 0 5vw;
   border-radius: 20px 20px 0 0;
   background-color: #35486D;
   gap: 5px;
@@ -241,7 +247,7 @@
   display: flex;
   justify-content: space-between;
   height: 99%;
-  padding: 0 20px;
+  padding: 0 5vw;
 }
 
 .member-info {
