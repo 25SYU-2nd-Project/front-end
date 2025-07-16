@@ -11,8 +11,8 @@ export default function Footer() {
 
     useEffect(() => {
         // 현재 경로 기준 초기 선택 상태 설정
-        if (pathname.includes('/main')) setSelected('home');
-        else if (pathname.includes('/team')) setSelected('team');
+        if (pathname.includes('/Main')) setSelected('home');
+        else if (pathname.includes('/Team')) setSelected('team');
     }, [pathname]);
 
     const handleClick = (page: string, path: string) => {

@@ -313,7 +313,7 @@ export default function Team() {
 
           <div onClick={() => {
             if (teamId) {
-              router.push(`/brief?teamId=${teamId}`);
+              router.push(`/Brief?teamId=${teamId}`);
             }
           }} className='team-list-box'>
             <span className='team-list-text'> 팀 회의록 보기</span>

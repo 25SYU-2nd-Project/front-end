@@ -75,7 +75,7 @@ export default function BriefPage() {
               <div
                 key={item.id}
                 className="Brief-Item"
-                onClick={() => router.push(`/brief/${item.id}`)}
+                onClick={() => router.push(`/Brief/${item.id}`)}
                 style={{ cursor: 'pointer' }}
               >
                 <p className="Brief-Date">{item.meetingDate}</p>
