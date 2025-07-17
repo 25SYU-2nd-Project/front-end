@@ -326,7 +326,7 @@ export default function Team() {
           />
         )}
 
-        <div onClick={() => router.push('/brief')} className='team-list-box'>
+        <div onClick={() => router.push('/Brief')} className='team-list-box'>
           <span className='team-list-text'> 팀 회의록 보기</span>
           <Image className='team-list-vector-img' src="/images/Vector-next.png" alt="vectorImg" width={20} height={30}></Image>
         </div>
