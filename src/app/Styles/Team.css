@@ -53,6 +53,7 @@
 
 .team-header-select-text {
   font-family: 'Pretendard-Bold';
+  color: #000;
 } 
 
 .dropdown {
@@ -272,11 +273,13 @@
 
 .profile-name {
   font-size:17px;
+  color: #000;
   font-family: 'Pretendard-Semibold';
 }
 
 .profile-role {
   font-size: 15px;
+  color: #000;
   font-family: 'Pretendard-Medium';
 }
 

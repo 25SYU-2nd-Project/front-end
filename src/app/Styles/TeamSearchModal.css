@@ -64,11 +64,13 @@
     font-family: 'Pretendard-Medium';
     font-size: 15px;
     padding: 0 15px;
+    color: #000;
 }
 
 .Team-Search-Modal-Input::placeholder {
     font-family: 'Pretendard-Medium';
     font-size: 15px;
+    /* color: gainsboro; */
 }
 
 .Modal-Error-Box {
