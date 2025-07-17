@@ -28,7 +28,7 @@ export default function Footer() {
                 alt="home"
                 width={50}
                 height={50}
-                onClick={() => handleClick('home', '/main')}
+                onClick={() => handleClick('home', '/Main')}
                 style={{ cursor: 'pointer' }}
             />
             <Image
@@ -37,7 +37,7 @@ export default function Footer() {
                 alt="team"
                 width={50}
                 height={50}
-                onClick={() => handleClick('team', '/team')}
+                onClick={() => handleClick('team', '/Team')}
                 style={{ cursor: 'pointer' }}
             />
             <Image
